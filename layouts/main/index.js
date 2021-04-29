@@ -16,7 +16,6 @@ export const useStyles = makeStyles((theme) => ({
 
   appBar: {
     display: "flex",
-    zIndex: "2",
     justifyContent: "space-between",
     position: "fixed",
     color: "#808080",
