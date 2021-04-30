@@ -108,7 +108,7 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function MainLayout({ children }) {
   const classes = useStyles();
-  const [drawerStatus, setDrawerStatus] = useState(true);
+  const [drawerStatus, setDrawerStatus] = useState(false);
 
   const listItemsComponents = useMemo(
     () =>

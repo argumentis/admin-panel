@@ -29,8 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   nestedListItemSelected: {
-    paddingLeft: "32px",
-    height: "36px",
     "& .MuiListItemText-secondary": {
       fontSize: "16px",
       fontWeight: "400",
