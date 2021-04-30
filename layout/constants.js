@@ -10,7 +10,7 @@ export const listItems = [
     name: "Dashboard",
     icon: <DashboardIcon />,
     nestedListItems: [],
-    pathname: "/dashboard",
+    pathname: "/",
   },
   {
     name: "Catalog",
