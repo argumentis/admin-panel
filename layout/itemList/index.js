@@ -8,6 +8,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import NestedItemList from "../nestedItem";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { setPageName } from "../../store/modules/layoutReducer/index";
 import clsx from "clsx";
 import Link from "next/link";
 
@@ -44,12 +46,21 @@ export const useStyles = makeStyles(() => ({
 
 export default function ItemList(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { layout } = useSelector((state) => state);
+  const [expanded, setExpanded] = useState(true);
   const { item, drawerStatus } = props;
   const { nestedListItems, icon, name, pathname } = item;
-  const [expanded, setExpanded] = useState(true);
+  const { openedPage } = layout;
   const router = useRouter();
 
-  const handleClick = () => setExpanded(!expanded);
+  const handleClickExpand = () => setExpanded(!expanded);
+
+  const handleClick = () => {
+    if (openedPage !== name) {
+      dispatch(setPageName(name));
+    }
+  };
 
   const listItemsComponents = useMemo(
     () =>
@@ -69,7 +80,7 @@ export default function ItemList(props) {
         <ListItem
           button
           className={classes.listItemStyle}
-          onClick={handleClick}
+          onClick={handleClickExpand}
         >
           <ListItemIcon className={classes.listItemIconStyle}>
             {expanded ? <ExpandMore /> : icon}
@@ -80,6 +91,7 @@ export default function ItemList(props) {
         <Link href={pathname}>
           <ListItem
             button
+            onClick={handleClick}
             className={clsx({
               [classes.listItemStyle]: pathname !== router.pathname,
               [classes.listItemStyleSelected]: pathname === router.pathname,

@@ -1,8 +1,8 @@
-import {combineReducers} from "redux";
-import {testReducer} from './modules/test/index';
-import {loginReducer} from './modules/login/index';
+import { combineReducers } from "redux";
+import { layoutReducer } from "./modules/layoutReducer/index";
+import { loginReducer } from "./modules/login/index";
 
 export const rootReducer = combineReducers({
-    test: testReducer,
-    loginUser: loginReducer
-})
+  layout: layoutReducer,
+  loginUser: loginReducer,
+});

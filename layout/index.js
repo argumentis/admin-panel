@@ -5,9 +5,11 @@ import { listItems } from "./constants";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import IconButton from "@material-ui/core/IconButton";
-import ItemList from "./components/itemList";
+import ItemList from "./itemList";
 import MenuIcon from "@material-ui/icons/Menu";
-import ProfileBlock from "./components/profileBlock";
+import ProfileBlock from "./profileBlock";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDrawerStatus } from "../store/modules/layoutReducer/index";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,8 +109,10 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MainLayout({ children }) {
+  const dispatch = useDispatch();
+  const { layout } = useSelector((state) => state);
+  const { drawerStatus, openedPage } = layout;
   const classes = useStyles();
-  const [drawerStatus, setDrawerStatus] = useState(false);
 
   const listItemsComponents = useMemo(
     () =>
@@ -119,7 +123,7 @@ export default function MainLayout({ children }) {
   );
 
   const handleDrawerToggle = () => {
-    setDrawerStatus(!drawerStatus);
+    dispatch(changeDrawerStatus());
   };
 
   return (
@@ -139,7 +143,7 @@ export default function MainLayout({ children }) {
               })}
             />
           </IconButton>
-          <div className={classes.selectedPageName}>Orders</div>
+          <div className={classes.selectedPageName}>{openedPage}</div>
         </div>
         <div className={classes.logoStyle}></div>
         <ProfileBlock />

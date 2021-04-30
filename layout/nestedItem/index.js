@@ -5,6 +5,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { setPageName } from "../../store/modules/layoutReducer/index";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,9 +45,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NestedItemList(props) {
   const classes = useStyles();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { layout } = useSelector((state) => state);
+  const { openedPage } = layout;
   const { nestedItem, drawerStatus } = props;
   const { name, icon, pathname } = nestedItem;
-  const router = useRouter();
+
+  const handleClick = () => {
+    if (openedPage !== name) {
+      dispatch(setPageName(name));
+    }
+  };
+
   return (
     <Link href={pathname}>
       <ListItem
@@ -55,6 +67,7 @@ export default function NestedItemList(props) {
           [classes.nestedListItemSelected]: pathname === router.pathname,
         })}
         button
+        onClick={handleClick}
         selected={pathname === router.pathname}
       >
         <ListItemIcon className={classes.listItemIconStyle}>

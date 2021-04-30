@@ -1,4 +1,4 @@
-import MainLayout from "../../layouts/main";
+import MainLayout from "../../layout";
 
 export default function Reviews() {
   return (

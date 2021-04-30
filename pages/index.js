@@ -1,11 +1,11 @@
-import MainLayout from "../layouts/main";
+import MainLayout from "../layout";
 // import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUserAction } from "../store/modules/login";
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { loginUserAction } from "../store/modules/login";
 
 export default function MainPage() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const router = useRouter()
 
   // useEffect(() => {
@@ -13,11 +13,11 @@ export default function MainPage() {
   // },[])
 
   // take redux state
-  const { test, loginUser } = useSelector((state) => state);
+  // const { loginUser } = useSelector((state) => state);
 
-  useEffect(() => {
-    dispatch(loginUserAction("Max", "asdasdasd", true));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loginUserAction("Max", "asdasdasd", true));
+  // }, []);
   return (
     <MainLayout>
       <div style={{ border: "2px solid blue" }}>

@@ -2,8 +2,8 @@ import React from "react";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import ProfileTextField from "../../../../shared/ProfileTextField";
-import { textFieldList } from "../../../../components/login/constants";
+import ProfileTextField from "./../../shared/ProfileTextField";
+import { textFieldList } from "./../../components/login/constants";
 
 export const useStyles = makeStyles((theme) => ({
   inputWrapper: {
