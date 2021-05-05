@@ -1,11 +1,12 @@
 import React from "react";
 import Menu from "@material-ui/core/Menu";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import ProfileTextField from "./../../shared/ProfileTextField";
 import { textFieldList } from "./../../components/login/constants";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
   inputWrapper: {
     display: "flex",
     flexDirection: "column",
@@ -14,7 +15,7 @@ export const useStyles = makeStyles((theme) => ({
       margin: "1em 1em 0 1em",
     },
   },
-  root: {
+  buttonBlock: {
     display: "flex",
     justifyContent: "space-between",
     "& > *": {
@@ -33,19 +34,20 @@ export const useStyles = makeStyles((theme) => ({
 
 export default function ProfileEdit(props) {
   const classes = useStyles();
-  const { anchorEl, setAnchorEl } = props;
+  const { state, setState } = props;
+  const { menuStatus } = state;
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setState({ ...state, menuStatus: null });
   };
 
   return (
     <div>
       <Menu
         id="simple-menu"
-        anchorEl={anchorEl}
+        anchorEl={menuStatus}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(menuStatus)}
         onClose={handleClose}
       >
         <form className={classes.inputWrapper} noValidate autoComplete="off">
@@ -53,7 +55,7 @@ export default function ProfileEdit(props) {
             <ProfileTextField key={item.label} item={item} />
           ))}
         </form>
-        <div className={classes.root}>
+        <div className={classes.buttonBlock}>
           <Button variant="contained">Edit</Button>
           <Button variant="contained">Logout</Button>
         </div>
@@ -61,3 +63,8 @@ export default function ProfileEdit(props) {
     </div>
   );
 }
+
+ProfileEdit.propTypes = {
+  state: PropTypes.object.isRequired,
+  setState: PropTypes.func.isRequired,
+};

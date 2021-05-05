@@ -20,6 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     position: "fixed",
+    zIndex: "2",
     color: "#808080",
     width: "100%",
     height: "50px",
@@ -104,15 +105,16 @@ export const useStyles = makeStyles((theme) => ({
 
   content: {
     marginTop: "55px",
+    zIndex: "1",
     flexGrow: 1,
   },
 }));
 
 export default function MainLayout({ children }) {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { layout } = useSelector((state) => state);
   const { drawerStatus, openedPage } = layout;
-  const classes = useStyles();
 
   const listItemsComponents = useMemo(
     () =>

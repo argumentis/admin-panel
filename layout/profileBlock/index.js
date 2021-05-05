@@ -40,22 +40,22 @@ export const useStyles = makeStyles(() => ({
 }));
 export default function ProfileBlock() {
   const classes = useStyles();
-  const [active, setActive] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [state, setState] = useState({ reloadActive: false, menuStatus: null });
+  const { reloadActive } = state;
 
   const handleOnClick = () => {
-    setActive(true);
-    setTimeout(() => setActive(false), 1000);
+    setState({ ...state, reloadActive: true });
+    setTimeout(() => setState({ ...state, reloadActive: false }), 1000);
   };
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setState({ ...state, menuStatus: event.currentTarget });
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.reloadButton} onClick={handleOnClick}>
-        {active ? (
+        {reloadActive ? (
           <CircularProgress
             className={classes.circularProgressStyle}
             size={18}
@@ -78,7 +78,7 @@ export default function ProfileBlock() {
       >
         Jane Doe
       </Button>
-      <ProfileEdit anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+      <ProfileEdit state={state} setState={setState} />
     </div>
   );
 }
