@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -46,14 +45,12 @@ export default function MediaCard() {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image="../../animal.jpg" />
-        <CardContent className={classes.typographyStyle}>
-          <Typography align="center" variant="h5">
-            Animals
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia className={classes.media} image="../../animal.jpg" />
+      <CardContent className={classes.typographyStyle}>
+        <Typography align="center" variant="h5">
+          Animals
+        </Typography>
+      </CardContent>
       <CardActions className={classes.buttonBlock}>
         <Button className={classes.buttonStyle} startIcon={<FilterIcon />}>
           Products
