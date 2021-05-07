@@ -10,6 +10,8 @@ import { textFieldList } from "./constants";
 export const useStyles = makeStyles(() => ({
   root: {
     backgroundImage: "url(https://source.unsplash.com/random/1600x900)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     minHeight: "100vh",
     width: "100vw",
     display: "flex",

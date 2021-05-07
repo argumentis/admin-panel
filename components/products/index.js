@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   },
 
   button: {
-    marginRight: "25px",
     color: "#4f3cc9",
     borderRadius: "10px",
   },
@@ -37,6 +36,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
     paddingBottom: "10px",
+    marginRight: "25px",
   },
 });
 
@@ -59,6 +59,16 @@ export default function Products() {
         <div className={classes.mainBlock}>
           <FilterBlock />
           <div className={classes.content}>
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
+            <MediaCard />
             <MediaCard />
             <MediaCard />
             <MediaCard />
