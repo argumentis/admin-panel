@@ -9,9 +9,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
-import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
-import ThumbUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
-
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
     display: "none",
@@ -74,18 +73,12 @@ export default function TableToolbar(props) {
       </Typography>
       <div className={classes.buttonBlock}>
         <Tooltip title="Accept">
-          <Button
-            className={classes.buttonStyle}
-            startIcon={<ThumbUpOutlinedIcon />}
-          >
+          <Button className={classes.buttonStyle} startIcon={<ThumbUpIcon />}>
             Accept
           </Button>
         </Tooltip>
         <Tooltip title="Reject">
-          <Button
-            className={classes.buttonStyle}
-            startIcon={<ThumbDownOutlinedIcon />}
-          >
+          <Button className={classes.buttonStyle} startIcon={<ThumbDownIcon />}>
             Reject
           </Button>
         </Tooltip>

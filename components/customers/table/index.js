@@ -12,26 +12,39 @@ import TableHeader from "./components/TableHeader";
 import TableToolbar from "./components/TableToolbar";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
 
 function createData(
+  id,
   customer,
+  lastCustomer,
   lastSeen,
   orders,
   totalSpend,
   latestPurchase,
   news
 ) {
-  return { customer, lastSeen, orders, totalSpend, latestPurchase, news };
+  return {
+    id,
+    customer,
+    lastCustomer,
+    lastSeen,
+    orders,
+    totalSpend,
+    latestPurchase,
+    news,
+  };
 }
 
 const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3, true),
-  createData("Donut", 452, 25.0, 51, 4.9, false),
-  createData("Eclair", 262, 16.0, 24, 6.0, true),
-  createData("Cupcake1", 305, 3.7, 67, 4.3, false),
-  createData("Donut1", 452, 25.0, 51, 4.9, true),
-  createData("Eclair1", 262, 16.0, 24, 6.0, false),
+  createData(1, "Cupcake", "sdf", 305, 3.7, 67, 4.3, false),
+  createData(2, "Donut", "sdg", 452, 25.0, 51, 4.9, true),
+  createData(3, "Eclair", "sdfg", 262, 16.0, 24, 6.0, true),
+  createData(4, "Cupcake1", "rggr", 305, 3.7, 67, 4.3, false),
+  createData(5, "Donut1", "wrwh", 452, 25.0, 51, 4.9, true),
+  createData(6, "Eclair1", "Cujtjp", 262, 16.0, 24, 6.0, true),
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +86,22 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#fff",
     },
   },
+
+  avatar: {
+    width: "27px",
+    height: "27px",
+    color: "#bdbdbd",
+  },
+
+  customersBlock: {
+    display: "flex",
+    alignItems: "center",
+  },
+
+  customerName: {
+    marginLeft: "10px",
+    color: "#4f3cc9",
+  },
 }));
 
 const initialState = {
@@ -96,7 +125,7 @@ export default function CustomersTable() {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       console.log(event.target.checked, "event");
-      const newSelecteds = rows.map((n) => n.customer);
+      const newSelecteds = rows.map((n) => n.id);
       setState({ ...state, selected: newSelecteds });
       return;
     }
@@ -164,18 +193,18 @@ export default function CustomersTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.customer);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       className={classes.tableRow}
                       hover
-                      onClick={(event) => handleClick(event, row.customer)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.customer}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell
@@ -194,7 +223,15 @@ export default function CustomersTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.customer}
+                        <div className={classes.customersBlock}>
+                          <AccountCircleIcon className={classes.avatar} />
+                          <Typography
+                            className={classes.customerName}
+                            variant="body2"
+                          >
+                            {row.customer} {row.lastCustomer}
+                          </Typography>
+                        </div>
                       </TableCell>
                       <TableCell align="right">{row.lastSeen}</TableCell>
                       <TableCell align="right">{row.orders}</TableCell>
