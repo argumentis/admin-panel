@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
+    borderRadius: "10px",
+    border: "1px solid #e0e0e3",
   },
 
   table: {
@@ -92,7 +94,7 @@ export default function CustomersTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.customer);
       setState({ ...state, selected: newSelecteds });
       return;
     }

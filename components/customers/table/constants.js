@@ -31,7 +31,7 @@ export const headCells = [
   },
   {
     id: "news",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "News",
   },

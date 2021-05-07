@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TableHeader from "./components/TableHeader";
 import TableToolbar from "./components/TableToolbar";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
+import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import { getComparator, stableSort } from "./helpers";
 
 function createData(
@@ -25,12 +26,12 @@ function createData(
 }
 
 const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData("Donut", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData("Eclair", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
-  createData("Cupcake1", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData("Donut1", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData("Eclair1", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
+  createData("Cupcake", 305, 3.7, 67, 4.3, true),
+  createData("Donut", 452, 25.0, 51, 4.9, false),
+  createData("Eclair", 262, 16.0, 24, 6.0, true),
+  createData("Cupcake1", 305, 3.7, 67, 4.3, false),
+  createData("Donut1", 452, 25.0, 51, 4.9, true),
+  createData("Eclair1", 262, 16.0, 24, 6.0, false),
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
+    borderRadius: "10px",
+    border: "1px solid #e0e0e3",
   },
 
   table: {
@@ -92,7 +95,8 @@ export default function CustomersTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      console.log(event.target.checked, "event");
+      const newSelecteds = rows.map((n) => n.customer);
       setState({ ...state, selected: newSelecteds });
       return;
     }
@@ -196,7 +200,13 @@ export default function CustomersTable() {
                       <TableCell align="right">{row.orders}</TableCell>
                       <TableCell align="right">{row.totalSpend}</TableCell>
                       <TableCell align="right">{row.latestPurchase}</TableCell>
-                      <TableCell align="left">{row.news}</TableCell>
+                      <TableCell align="left">
+                        {row.news ? (
+                          <DoneOutlinedIcon />
+                        ) : (
+                          <ClearOutlinedIcon />
+                        )}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
