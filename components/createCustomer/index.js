@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import MainLayout from "../../layout";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,10 +22,8 @@ export default function CreateCustomer() {
     dispatch(setPageName("Create Customer"));
   }, []);
   return (
-    <MainLayout>
-      <div className={classes.root}>
-        <CreateCustomerForm />
-      </div>
-    </MainLayout>
+    <div className={classes.root}>
+      <CreateCustomerForm />
+    </div>
   );
 }
