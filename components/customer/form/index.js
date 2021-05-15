@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCustomer } from "../../../store/modules/customerReducer";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import { useRouter } from "next/router";
 import { uid } from "uid";
 import moment from "moment";
 
@@ -74,16 +73,15 @@ const initialState = {
 };
 
 const CreateCustomerForm = (props) => {
-  const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { values, syncErrors } = useSelector(
-    ({ form: { customerForm } }) => customerForm
-  );
+  const { form } = useSelector((state) => state);
   const [state, setState] = useState(initialState);
   const { pristine, submitting, handleSubmit } = props;
   const { showPassword, showConfirmPassword } = state;
+  const { customerForm } = form;
   const id = uid();
+  const { values, syncErrors } = customerForm;
 
   const handleDispatch = () => {
     const newCustomer = {
@@ -103,10 +101,7 @@ const CreateCustomerForm = (props) => {
       news: false,
     };
 
-    if (!syncErrors) {
-      dispatch(createCustomer(newCustomer));
-      router.push(`/customers/${id}`);
-    }
+    if (!syncErrors) dispatch(createCustomer(newCustomer));
   };
 
   const handleChange = (prop) => (event) => {
