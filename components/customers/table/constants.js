@@ -1,6 +1,6 @@
 export const headCells = [
   {
-    id: "customer",
+    id: "firstName",
     numeric: false,
     disablePadding: true,
     label: "Customer",

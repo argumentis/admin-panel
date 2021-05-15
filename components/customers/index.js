@@ -7,6 +7,7 @@ import Search from "../../shared/Search";
 import Button from "@material-ui/core/Button";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CustomersTable from "./table";
+import Link from "next/link";
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +19,8 @@ const useStyles = makeStyles({
   button: {
     color: "#4f3cc9",
     borderRadius: "10px",
+    width: "85px",
+    height: "30px",
   },
 
   mainBlock: {
@@ -46,9 +49,11 @@ export default function Customers() {
       <div className={classes.root}>
         <div className={classes.headerBlock}>
           <Search />
-          <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
-            Create
-          </Button>
+          <Link href={"/customers/create"}>
+            <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
+              Create
+            </Button>
+          </Link>
         </div>
         <div className={classes.mainBlock}>
           <CustomersTable />

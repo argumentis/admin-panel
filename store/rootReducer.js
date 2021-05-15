@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import { layoutReducer } from "./modules/layoutReducer/index";
-import { loginReducer } from "./modules/login/index";
+import { customerReducer } from "./modules/customerReducer/index";
+import { reducer as reduxFormReducer } from "redux-form";
 
 export const rootReducer = combineReducers({
   layout: layoutReducer,
-  loginUser: loginReducer,
+  customers: customerReducer,
+  form: reduxFormReducer,
 });

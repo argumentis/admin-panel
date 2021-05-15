@@ -78,6 +78,7 @@ export const useStyles = makeStyles((theme) => ({
   selectedPageName: {
     marginTop: "12px",
     marginLeft: "12px",
+    width: "200px",
     fontSize: "20px",
     fontFamily: "Roboto , sans-serif",
     color: "#808080",

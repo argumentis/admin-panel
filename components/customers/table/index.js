@@ -15,6 +15,7 @@ import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
+import { useSelector } from "react-redux";
 
 function createData(
   id,
@@ -39,12 +40,12 @@ function createData(
 }
 
 const rows = [
-  createData(1, "Cupcake", "sdf", 305, 3.7, 67, 4.3, false),
-  createData(2, "Donut", "sdg", 452, 25.0, 51, 4.9, true),
-  createData(3, "Eclair", "sdfg", 262, 16.0, 24, 6.0, true),
-  createData(4, "Cupcake1", "rggr", 305, 3.7, 67, 4.3, false),
-  createData(5, "Donut1", "wrwh", 452, 25.0, 51, 4.9, true),
-  createData(6, "Eclair1", "Cujtjp", 262, 16.0, 24, 6.0, true),
+  createData(1, "Cupcake", "sdf", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
+  createData(2, "Donut", "sdg", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
+  createData(3, "Eclair", "sdfg", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
+  createData(4, "Cupcake1", "rggr", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
+  createData(5, "Donut1", "wrwh", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
+  createData(6, "Eclair1", "Cujtjp", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -116,6 +117,8 @@ export default function CustomersTable() {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
   const { order, orderBy, selected, page, rowsPerPage } = state;
+  const { customers } = useSelector((state) => state);
+  const { customersArray } = customers;
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -125,7 +128,7 @@ export default function CustomersTable() {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       console.log(event.target.checked, "event");
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = customersArray.map((n) => n.id);
       setState({ ...state, selected: newSelecteds });
       return;
     }
@@ -187,10 +190,10 @@ export default function CustomersTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={customersArray.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(customersArray, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -229,7 +232,7 @@ export default function CustomersTable() {
                             className={classes.customerName}
                             variant="body2"
                           >
-                            {row.customer} {row.lastCustomer}
+                            {row.firstName} {row.lastName}
                           </Typography>
                         </div>
                       </TableCell>
@@ -253,7 +256,7 @@ export default function CustomersTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={customersArray.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
