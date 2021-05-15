@@ -17,37 +17,6 @@ import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
 import { useSelector } from "react-redux";
 
-function createData(
-  id,
-  customer,
-  lastCustomer,
-  lastSeen,
-  orders,
-  totalSpend,
-  latestPurchase,
-  news
-) {
-  return {
-    id,
-    customer,
-    lastCustomer,
-    lastSeen,
-    orders,
-    totalSpend,
-    latestPurchase,
-    news,
-  };
-}
-
-const rows = [
-  createData(1, "Cupcake", "sdf", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData(2, "Donut", "sdg", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData(3, "Eclair", "sdfg", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
-  createData(4, "Cupcake1", "rggr", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData(5, "Donut1", "wrwh", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData(6, "Eclair1", "Cujtjp", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
