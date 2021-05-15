@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import MainLayout from "../../layout";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import CardComponent from "./Card";
@@ -21,21 +20,19 @@ export default function Categories() {
     dispatch(setPageName("Categories"));
   }, []);
   return (
-    <MainLayout>
-      <div className={classes.root}>
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-      </div>
-    </MainLayout>
+    <div className={classes.root}>
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+      <CardComponent />
+    </div>
   );
 }

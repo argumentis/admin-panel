@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "235px",
     height: "23px",
     marginTop: "10px",
-    backgroundImage: "url(logo.PNG)",
+    backgroundImage: "url(/logo.PNG)",
   },
 
   selectedPageName: {

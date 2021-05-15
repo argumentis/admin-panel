@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import MainLayout from "../../layout";
 import { makeStyles } from "@material-ui/core/styles";
 import FilterBlock from "./filterBlock";
 import Button from "@material-ui/core/Button";
@@ -49,39 +48,37 @@ export default function Products() {
   }, []);
 
   return (
-    <MainLayout>
-      <div className={classes.root}>
-        <div className={classes.buttonBlock}>
-          <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
-            Create
-          </Button>
-        </div>
-        <div className={classes.mainBlock}>
-          <FilterBlock />
-          <div className={classes.content}>
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-            <MediaCard />
-          </div>
+    <div className={classes.root}>
+      <div className={classes.buttonBlock}>
+        <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
+          Create
+        </Button>
+      </div>
+      <div className={classes.mainBlock}>
+        <FilterBlock />
+        <div className={classes.content}>
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
+          <MediaCard />
         </div>
       </div>
-    </MainLayout>
+    </div>
   );
 }

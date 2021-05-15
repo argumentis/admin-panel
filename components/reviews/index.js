@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import MainLayout from "../../layout";
 import { makeStyles } from "@material-ui/core/styles";
 import Search from "../../shared/Search";
 import Button from "@material-ui/core/Button";
@@ -42,18 +41,16 @@ export default function Customers() {
   }, []);
 
   return (
-    <MainLayout>
-      <div className={classes.root}>
-        <div className={classes.headerBlock}>
-          <Search />
-          <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
-            Create
-          </Button>
-        </div>
-        <div className={classes.mainBlock}>
-          <CustomersTable />
-        </div>
+    <div className={classes.root}>
+      <div className={classes.headerBlock}>
+        <Search />
+        <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
+          Create
+        </Button>
       </div>
-    </MainLayout>
+      <div className={classes.mainBlock}>
+        <CustomersTable />
+      </div>
+    </div>
   );
 }
