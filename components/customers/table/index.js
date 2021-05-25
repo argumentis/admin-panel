@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,7 +14,6 @@ import TableToolbar from "./components/TableToolbar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
-import { useSelector } from "react-redux";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -82,12 +82,10 @@ const initialState = {
   rowsPerPage: 5,
 };
 
-export default function CustomersTable() {
+export default function CustomersTable({ searchResult }) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
   const { order, orderBy, selected, page, rowsPerPage } = state;
-  const { customers } = useSelector((state) => state);
-  const { customersArray } = customers;
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -96,7 +94,7 @@ export default function CustomersTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = customersArray.map((n) => n.id);
+      const newSelecteds = searchResult.map((n) => n.id);
       setState({ ...state, selected: newSelecteds });
       return;
     }
@@ -154,10 +152,10 @@ export default function CustomersTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={customersArray.length}
+              rowCount={searchResult.length}
             />
             <TableBody>
-              {stableSort(customersArray, getComparator(order, orderBy))
+              {stableSort(searchResult, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -215,7 +213,7 @@ export default function CustomersTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={customersArray.length}
+          count={searchResult.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -225,3 +223,7 @@ export default function CustomersTable() {
     </div>
   );
 }
+
+CustomersTable.propTypes = {
+  searchResult: PropTypes.array.isRequired,
+};

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CustomersTable from "./table";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -38,6 +39,12 @@ const useStyles = makeStyles({
 export default function Customers() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [value, setValue] = useState("");
+  const { customersArray } = useSelector(({ customers }) => customers);
+  const searchResult = customersArray.filter((item) => {
+    if (!item.firstName) return false;
+    return item.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1;
+  });
 
   useEffect(() => {
     dispatch(setPageName("Customers"));
@@ -46,7 +53,7 @@ export default function Customers() {
   return (
     <div className={classes.root}>
       <div className={classes.headerBlock}>
-        <Search />
+        <Search value={value} setValue={setValue} />
         <Link href={"/customers/create"}>
           <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
             Create
@@ -54,7 +61,7 @@ export default function Customers() {
         </Link>
       </div>
       <div className={classes.mainBlock}>
-        <CustomersTable />
+        <CustomersTable searchResult={searchResult} />
       </div>
     </div>
   );

@@ -293,8 +293,8 @@ export default EditCustomerForm;
 EditCustomerForm.propTypes = {
   values: PropTypes.object,
   syncErrors: PropTypes.array,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  currentCustomer: PropTypes.array.isRequired,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  currentCustomer: PropTypes.object.isRequired,
 };

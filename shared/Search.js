@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import ClearIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   searchStyle: {
@@ -23,9 +24,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Search() {
+export default function Search({ value, setValue }) {
   const classes = useStyles();
-  const [value, setValue] = useState("");
 
   const handleOnChangeValue = (event) => {
     setValue(event.target.value);
@@ -58,3 +58,8 @@ export default function Search() {
     />
   );
 }
+
+Search.propTypes = {
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+};
