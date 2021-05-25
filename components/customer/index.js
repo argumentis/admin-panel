@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
-import CreateCustomerForm from "./form/index";
+import EditCustomerForm from "./form/index";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Error from "next/error";
@@ -23,18 +23,24 @@ export default function Customer() {
   const router = useRouter();
   const { customersArray } = useSelector(({ customers }) => customers);
 
-  const currenCustomer = customersArray.find(
+  const currentCustomer = customersArray.find(
     (customer) => customer.id === router.query.id
   );
 
-  console.log(currenCustomer);
-
   useEffect(() => {
-    dispatch(setPageName("Create Customer"));
-  }, []);
+    if (currentCustomer) {
+      dispatch(
+        setPageName(`${currentCustomer.firstName} ${currentCustomer.lastName}`)
+      );
+    }
+  }, [currentCustomer]);
   return (
     <div className={classes.root}>
-      {currenCustomer ? <CreateCustomerForm /> : <Error statusCode={404} />}
+      {currentCustomer ? (
+        <EditCustomerForm currentCustomer={currentCustomer} />
+      ) : (
+        <Error statusCode={404} />
+      )}
     </div>
   );
 }

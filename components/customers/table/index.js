@@ -10,12 +10,11 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import TableHeader from "./components/TableHeader";
 import TableToolbar from "./components/TableToolbar";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-import DoneOutlinedIcon from "@material-ui/icons/DoneOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   customersBlock: {
+    cursor: "pointer",
     display: "flex",
     alignItems: "center",
   },
@@ -96,7 +96,6 @@ export default function CustomersTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      console.log(event.target.checked, "event");
       const newSelecteds = customersArray.map((n) => n.id);
       setState({ ...state, selected: newSelecteds });
       return;
@@ -140,11 +139,7 @@ export default function CustomersTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <TableToolbar
-          numSelected={selected.length}
-          state={state}
-          setState={setState}
-        />
+        <TableToolbar state={state} setState={setState} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -189,33 +184,28 @@ export default function CustomersTable() {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        <div className={classes.customersBlock}>
-                          <AccountCircleIcon className={classes.avatar} />
-                          <Typography
-                            className={classes.customerName}
-                            variant="body2"
-                          >
-                            {row.firstName} {row.lastName}
-                          </Typography>
-                        </div>
-                      </TableCell>
+                      <Link href={`/customers/${row.id}`}>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          <div className={classes.customersBlock}>
+                            <AccountCircleIcon className={classes.avatar} />
+                            <Typography
+                              className={classes.customerName}
+                              variant="body2"
+                            >
+                              {row.firstName} {row.lastName}
+                            </Typography>
+                          </div>
+                        </TableCell>
+                      </Link>
                       <TableCell align="right">{row.lastSeen}</TableCell>
                       <TableCell align="right">{row.orders}</TableCell>
                       <TableCell align="right">{row.totalSpend}</TableCell>
                       <TableCell align="right">{row.latestPurchase}</TableCell>
-                      <TableCell align="left">
-                        {row.news ? (
-                          <DoneOutlinedIcon />
-                        ) : (
-                          <ClearOutlinedIcon />
-                        )}
-                      </TableCell>
                     </TableRow>
                   );
                 })}

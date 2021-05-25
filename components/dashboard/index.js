@@ -3,8 +3,9 @@ import CardComponent from "./Card";
 import { makeStyles } from "@material-ui/core/styles";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
+import moment from "moment";
 
 const useStyles = makeStyles({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
 export default function Dashboard() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { customersArray } = useSelector(({ customers }) => customers);
 
   useEffect(() => {
     dispatch(setPageName("Dashboard"));
@@ -25,17 +27,19 @@ export default function Dashboard() {
   };
   return (
     <div className={classes.root}>
-      <CardComponent
+      {/* <CardComponent
         pathname={"/reviews"}
         buttonName={"see all reviews"}
         itemArray={"arr..."}
         name={"Pending Reviews"}
         icon={<CommentIcon fontSize="large" />}
-      />
+      /> */}
       <CardComponent
         pathname={"/customers"}
         buttonName={"see all customers"}
-        itemArray={"arr..."}
+        itemArray={customersArray.filter(
+          (item) => item.createDate === moment().format("L")
+        )}
         name={"New Customers"}
         icon={<PersonAddIcon fontSize="large" />}
       />

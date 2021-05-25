@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Field, reduxForm } from "redux-form";
-import { renderTextField, validate, renderPasswordField, warn } from "./helper";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useDispatch, useSelector } from "react-redux";
-import { createCustomer } from "../../../store/modules/customerReducer";
+import { load } from "../../../store/modules/formReducer";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import { uid } from "uid";
-import moment from "moment";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { useRouter } from "next/router";
+import { connect } from "react-redux";
+import { renderTextField, validate, renderPasswordField } from "./helper";
+import {
+  editCustomer,
+  deleteCustomer,
+} from "../../../store/modules/customerReducer";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -63,6 +69,11 @@ const useStyles = makeStyles(() => ({
       boxShadow: "0px 3px 5px rgba(0,0,0,0.6)",
     },
   },
+  deleteButton: {
+    color: "#f44336",
+    width: "95px",
+    borderRadius: "10px",
+  },
 }));
 
 const initialState = {
@@ -72,36 +83,43 @@ const initialState = {
   showConfirmPassword: false,
 };
 
-const CreateCustomerForm = (props) => {
+let EditCustomerForm = (props) => {
+  const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { form } = useSelector((state) => state);
   const [state, setState] = useState(initialState);
-  const { pristine, submitting, handleSubmit } = props;
+  const { pristine, submitting, handleSubmit, currentCustomer } = props;
   const { showPassword, showConfirmPassword } = state;
-  const { customerForm } = form;
-  const id = uid();
-  const { values, syncErrors } = customerForm;
+  const { values, syncErrors } = useSelector(
+    ({ form: { customerForm } }) => customerForm
+  );
+
+  useEffect(() => {
+    dispatch(
+      load({
+        firstName: currentCustomer.firstName,
+        lastName: currentCustomer.lastName,
+        email: currentCustomer.email,
+        birthday: currentCustomer.birthday,
+        address: currentCustomer.address,
+        zipcode: currentCustomer.zipcode,
+        city: currentCustomer.city,
+        password: currentCustomer.password,
+        confirmPassword: currentCustomer.password,
+      })
+    );
+  }, []);
 
   const handleDispatch = () => {
-    const newCustomer = {
-      id: id,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      birthday: values.birthday,
-      address: values.address,
-      zipcode: values.zipcode,
-      city: values.city,
-      password: values.password,
-      lastSeen: moment().format("L"),
-      latestPurchase: moment().format("LLLL"),
-      orders: "0",
-      totalSpend: "300,0 $",
-      news: false,
-    };
+    if (!syncErrors) {
+      dispatch(editCustomer(currentCustomer.id, values));
+      router.push("/customers");
+    }
+  };
 
-    if (!syncErrors) dispatch(createCustomer(newCustomer));
+  const handleDelete = () => {
+    dispatch(deleteCustomer([currentCustomer.id]));
+    router.push("/customers");
   };
 
   const handleChange = (prop) => (event) => {
@@ -239,7 +257,7 @@ const CreateCustomerForm = (props) => {
           />
         </div>
       </div>
-      <div>
+      <div className={classes.horizontal}>
         <Button
           className={classes.button}
           type="submit"
@@ -249,12 +267,34 @@ const CreateCustomerForm = (props) => {
         >
           save
         </Button>
+        <Button
+          className={classes.deleteButton}
+          onClick={handleDelete}
+          startIcon={<DeleteIcon />}
+        >
+          delete
+        </Button>
       </div>
     </form>
   );
 };
 
-export default reduxForm({
+EditCustomerForm = reduxForm({
   form: "customerForm",
   validate,
-})(CreateCustomerForm);
+})(EditCustomerForm);
+
+EditCustomerForm = connect((state) => ({
+  initialValues: state.formReducer.data,
+}))(EditCustomerForm);
+
+export default EditCustomerForm;
+
+EditCustomerForm.propTypes = {
+  values: PropTypes.object,
+  syncErrors: PropTypes.array,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  currentCustomer: PropTypes.array.isRequired,
+};

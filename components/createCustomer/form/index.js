@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Field, reduxForm } from "redux-form";
-import { renderTextField, validate, renderPasswordField, warn } from "./helper";
+import { renderTextField, validate, renderPasswordField } from "./helper";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
@@ -13,7 +14,6 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { useRouter } from "next/router";
 import { uid } from "uid";
-import moment from "moment";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -77,35 +77,18 @@ const CreateCustomerForm = (props) => {
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { values, syncErrors } = useSelector(
-    ({ form: { customerForm } }) => customerForm
-  );
   const [state, setState] = useState(initialState);
   const { pristine, submitting, handleSubmit } = props;
   const { showPassword, showConfirmPassword } = state;
-  const id = uid();
+  const customerId = uid();
+  const { values, syncErrors } = useSelector(
+    ({ form: { customerForm } }) => customerForm
+  );
 
   const handleDispatch = () => {
-    const newCustomer = {
-      id: id,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      birthday: values.birthday,
-      address: values.address,
-      zipcode: values.zipcode,
-      city: values.city,
-      password: values.password,
-      lastSeen: moment().format("L"),
-      latestPurchase: moment().format("LLLL"),
-      orders: "0",
-      totalSpend: "300,0 $",
-      news: false,
-    };
-
     if (!syncErrors) {
-      dispatch(createCustomer(newCustomer));
-      router.push(`/customers/${id}`);
+      dispatch(createCustomer(customerId, values));
+      router.push(`/customers/${customerId}`);
     }
   };
 
@@ -263,3 +246,11 @@ export default reduxForm({
   form: "customerForm",
   validate,
 })(CreateCustomerForm);
+
+CreateCustomerForm.propTypes = {
+  values: PropTypes.object,
+  syncErrors: PropTypes.array,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};

@@ -29,10 +29,4 @@ export const headCells = [
     disablePadding: false,
     label: "Latest purchase",
   },
-  {
-    id: "news",
-    numeric: false,
-    disablePadding: false,
-    label: "News",
-  },
 ];

@@ -75,20 +75,26 @@ export default function CardComponent(props) {
             <div className={classes.iconStyle}>{icon}</div>
             <div className={classes.headerContent}>
               <div className={classes.headerText}>{name}</div>
-              <div className={classes.contentText}>23</div>
+              <div className={classes.contentText}>{itemArray.length}</div>
             </div>
           </div>
         </Link>
         <Divider />
         <List component="nav" aria-label="main mailbox folders">
-          <ListItem button>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={"Max Shevchenko"} />
-          </ListItem>
+          {itemArray.map((arrayItem) => (
+            <Link key={arrayItem.id} href={`${pathname}/${arrayItem.id}`}>
+              <ListItem button>
+                <ListItemAvatar>
+                  <Avatar>
+                    <ImageIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${arrayItem.firstName} ${arrayItem.lastName}`}
+                />
+              </ListItem>
+            </Link>
+          ))}
         </List>
       </CardContent>
       <CardActions>
@@ -105,6 +111,7 @@ export default function CardComponent(props) {
 CardComponent.propTypes = {
   pathname: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  itemArray: PropTypes.string.isRequired,
+  itemArray: PropTypes.array.isRequired,
   icon: PropTypes.object.isRequired,
+  buttonName: PropTypes.string.isRequired,
 };

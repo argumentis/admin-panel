@@ -9,6 +9,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
+import { useDispatch } from "react-redux";
+import { deleteCustomer } from "../../../../store/modules/customerReducer";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +38,15 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 export default function TableToolbar(props) {
   const classes = useToolbarStyles();
-  const { numSelected, state, setState } = props;
+  const { state, setState } = props;
+  const { selected } = state;
+
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteCustomer(selected));
+    setState({ ...state, selected: [] });
+  };
 
   const hanldeClearCheked = () => {
     setState({ ...state, selected: [] });
@@ -45,7 +55,7 @@ export default function TableToolbar(props) {
   return (
     <Toolbar
       className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
+        [classes.highlight]: selected.length > 0,
       })}
     >
       <IconButton onClick={hanldeClearCheked} size="small">
@@ -57,10 +67,14 @@ export default function TableToolbar(props) {
         variant="subtitle1"
         component="div"
       >
-        {numSelected} items selected
+        {selected.length} items selected
       </Typography>
       <Tooltip title="Delete">
-        <Button className={classes.buttonStyle} startIcon={<DeleteIcon />}>
+        <Button
+          className={classes.buttonStyle}
+          onClick={handleDelete}
+          startIcon={<DeleteIcon />}
+        >
           Delete
         </Button>
       </Tooltip>
@@ -69,7 +83,6 @@ export default function TableToolbar(props) {
 }
 
 TableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   state: PropTypes.object.isRequired,
   setState: PropTypes.func,
 };
