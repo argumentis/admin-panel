@@ -8,7 +8,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useDispatch, useSelector } from "react-redux";
-import { load } from "../../../store/modules/formReducer";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -93,22 +92,6 @@ let EditCustomerForm = (props) => {
   const { values, syncErrors } = useSelector(
     ({ form: { customerForm } }) => customerForm
   );
-
-  useEffect(() => {
-    dispatch(
-      load({
-        firstName: currentCustomer.firstName,
-        lastName: currentCustomer.lastName,
-        email: currentCustomer.email,
-        birthday: currentCustomer.birthday,
-        address: currentCustomer.address,
-        zipcode: currentCustomer.zipcode,
-        city: currentCustomer.city,
-        password: currentCustomer.password,
-        confirmPassword: currentCustomer.password,
-      })
-    );
-  }, []);
 
   const handleDispatch = () => {
     if (!syncErrors) {
@@ -284,8 +267,8 @@ EditCustomerForm = reduxForm({
   validate,
 })(EditCustomerForm);
 
-EditCustomerForm = connect((state) => ({
-  initialValues: state.formReducer.data,
+EditCustomerForm = connect((state, { currentCustomer }) => ({
+  initialValues: currentCustomer,
 }))(EditCustomerForm);
 
 export default EditCustomerForm;

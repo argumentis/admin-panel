@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Field, reduxForm } from "redux-form";
 import { useDispatch, useSelector } from "react-redux";
-import { load } from "../../../store/modules/formReducer";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -69,15 +68,6 @@ let EditCategoryForm = (props) => {
     ({ form: { categoryForm } }) => categoryForm
   );
 
-  useEffect(() => {
-    console.log(currentCategory);
-    dispatch(
-      load({
-        name: currentCategory.name,
-      })
-    );
-  }, []);
-
   const handleDispatch = () => {
     if (!syncErrors) {
       dispatch(editCustomer(currentCategory.id, name));
@@ -129,8 +119,8 @@ EditCategoryForm = reduxForm({
   validate,
 })(EditCategoryForm);
 
-EditCategoryForm = connect((state) => ({
-  initialValues: state.formReducer.data,
+EditCategoryForm = connect((state, { currentCategory }) => ({
+  initialValues: currentCategory,
 }))(EditCategoryForm);
 
 export default EditCategoryForm;

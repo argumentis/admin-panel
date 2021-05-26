@@ -41,7 +41,7 @@ export const categoriesList = [
   },
   {
     id: "9",
-    name: "Peaple",
+    name: "People",
     image: "https://marmelab.com/posters/people-1.jpeg",
   },
   {
