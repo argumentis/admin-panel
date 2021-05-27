@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ProfileEdit from "./ProfileEdit";
+import { useSelector } from "react-redux";
 
 export const useStyles = makeStyles(() => ({
   root: {
@@ -42,6 +43,7 @@ export default function ProfileBlock() {
   const classes = useStyles();
   const [state, setState] = useState({ reloadActive: false, menuStatus: null });
   const { reloadActive } = state;
+  const { username } = useSelector(({ login: { profile } }) => profile);
 
   const handleOnClick = () => {
     setState({ ...state, reloadActive: true });
@@ -76,7 +78,7 @@ export default function ProfileBlock() {
           </Avatar>
         }
       >
-        Jane Doe
+        {username}
       </Button>
       <ProfileEdit state={state} setState={setState} />
     </div>

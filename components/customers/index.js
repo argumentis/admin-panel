@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Search from "../../shared/Search";
-import Button from "@material-ui/core/Button";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CustomersTable from "./table";
-import Link from "next/link";
-import { useSelector } from "react-redux";
+import SimpleButton from "../../shared/SimpleButton";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
   root: {
     marginTop: "20px",
     display: "flex",
     flexDirection: "column",
-  },
-
-  button: {
-    color: "#4f3cc9",
-    borderRadius: "10px",
-    width: "85px",
-    height: "30px",
   },
 
   mainBlock: {
@@ -39,14 +31,15 @@ const useStyles = makeStyles({
 export default function Customers() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const router = useRouter();
   const [value, setValue] = useState("");
   const { customersArray } = useSelector(({ customers }) => customers);
-  const searchResult = customersArray.filter((item) => {
-    if (!item.firstName) return false;
-    return item.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1;
-  });
+  const { username } = useSelector(({ login: { profile } }) => profile);
 
   useEffect(() => {
+    if (username === "") {
+      router.push("/login");
+    }
     dispatch(setPageName("Customers"));
   }, []);
 
@@ -54,14 +47,21 @@ export default function Customers() {
     <div className={classes.root}>
       <div className={classes.headerBlock}>
         <Search value={value} setValue={setValue} />
-        <Link href={"/customers/create"}>
-          <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
-            Create
-          </Button>
-        </Link>
+        <SimpleButton
+          name={"Create"}
+          icon={<AddOutlinedIcon />}
+          link={"/customers/create"}
+        />
       </div>
       <div className={classes.mainBlock}>
-        <CustomersTable searchResult={searchResult} />
+        <CustomersTable
+          searchResult={customersArray.filter((item) => {
+            if (!item.firstName) return false;
+            return (
+              item.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1
+            );
+          })}
+        />
       </div>
     </div>
   );

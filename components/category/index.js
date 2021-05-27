@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
 import EditCategoryForm from "./form/index";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Error from "next/error";
 
 const useStyles = makeStyles({
@@ -21,6 +20,7 @@ export default function Category() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { username } = useSelector(({ login: { profile } }) => profile);
   const { categoriesArray } = useSelector(({ categories }) => categories);
 
   const currentCategory = categoriesArray.find(
@@ -28,8 +28,11 @@ export default function Category() {
   );
 
   useEffect(() => {
+    if (username === "") {
+      router.push("/login");
+    }
     if (currentCategory) {
-      dispatch(setPageName(currentCategory.name));
+      dispatch(setPageName(`Category "${currentCategory.name}"`));
     }
   }, [currentCategory]);
   return (

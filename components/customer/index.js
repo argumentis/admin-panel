@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
 import EditCustomerForm from "./form/index";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import Error from "next/error";
 
 const useStyles = makeStyles({
@@ -21,6 +20,7 @@ export default function Customer() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { username } = useSelector(({ login: { profile } }) => profile);
   const { customersArray } = useSelector(({ customers }) => customers);
 
   const currentCustomer = customersArray.find(
@@ -28,6 +28,9 @@ export default function Customer() {
   );
 
   useEffect(() => {
+    if (username === "") {
+      router.push("/login");
+    }
     if (currentCustomer) {
       dispatch(
         setPageName(`${currentCustomer.firstName} ${currentCustomer.lastName}`)

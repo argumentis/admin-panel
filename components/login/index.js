@@ -1,11 +1,10 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import HttpsIcon from "@material-ui/icons/Https";
 import { makeStyles } from "@material-ui/core/styles";
-import ProfileTextField from "../../shared/ProfileTextField";
-import { textFieldList } from "./constants";
+import { useSelector } from "react-redux";
+import LoginForm from "./form";
 
 export const useStyles = makeStyles(() => ({
   root: {
@@ -28,36 +27,26 @@ export const useStyles = makeStyles(() => ({
       borderRadius: "10px",
     },
   },
+
   avatarStyle: {
     backgroundColor: "#283593",
     margin: "16px",
   },
+
   hintStyle: {
     color: "#9e9e9e",
     marginTop: "0",
   },
-  inputWrapper: {
-    display: "flex",
-    flexDirection: "column",
+
+  formStyle: {
     width: "100%",
-    "& .MuiTextField-root": {
-      margin: "1em 1em 0 1em",
-    },
-  },
-  formButton: {
-    color: "#fff",
-    margin: "16px",
-    backgroundColor: "#4f3cc9",
-    borderRadius: "10px",
-    "&:hover": {
-      backgroundColor: "#372b8c",
-      boxShadow: "0px 3px 5px rgba(0,0,0,0.6)",
-    },
+    padding: "16px",
   },
 }));
 
 export default function Login() {
   const classes = useStyles();
+  const { profile } = useSelector(({ login }) => login);
 
   return (
     <div className={classes.root}>
@@ -66,19 +55,9 @@ export default function Login() {
           <HttpsIcon />
         </Avatar>
         <div className={classes.hintStyle}>Hint: demo / demo</div>
-        <form className={classes.inputWrapper} noValidate autoComplete="off">
-          {textFieldList.map((item) => (
-            <ProfileTextField key={item.label} item={item} />
-          ))}
-          <Button
-            className={classes.formButton}
-            variant="contained"
-            type="submit"
-            disableRipple
-          >
-            sign in
-          </Button>
-        </form>
+        <div className={classes.formStyle}>
+          <LoginForm profile={profile} nameButton={"sign in"} />
+        </div>
       </Paper>
     </div>
   );

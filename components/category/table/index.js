@@ -7,9 +7,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableHeader from "./components/TableHeader";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import SimpleButton from "../../../shared/SimpleButton";
 import Typography from "@material-ui/core/Typography";
 import { getComparator, stableSort } from "./helpers";
+import CreateIcon from "@material-ui/icons/Create";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +58,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 
-  customerName: {
-    marginLeft: "10px",
+  name: {
     color: "#4f3cc9",
+    textDecoration: "underline",
   },
 }));
 
@@ -77,12 +78,23 @@ export default function ProductTable() {
   const searchResult = [
     {
       id: "132",
-      firstName: "max",
-      lastName: "lol",
-      lastSeen: "lol",
-      orders: "lol",
-      totalSpend: "23",
-      latestPurchase: "defs",
+      image: "https://rost-info.com/wp-content/uploads/2019/08/0572945.jpg",
+      reference: "Computer Blue",
+      price: "10,0 $",
+      width: "11,0",
+      height: "14,5",
+      stock: "130",
+      sales: "17",
+    },
+    {
+      id: "122",
+      image: "https://stihi.ru/pics/2015/05/30/8014.jpg",
+      reference: "Funny hedgehog",
+      price: "20,0 $",
+      width: "21,0",
+      height: "24,5",
+      stock: "230",
+      sales: "27",
     },
   ];
 
@@ -131,23 +143,28 @@ export default function ProductTable() {
                     tabIndex={-1}
                     key={row.id}
                   >
-                    <Link href={`/customers/${row.id}`}>
+                    <TableCell align="left">
+                      <img src={row.image} width={25} height={20} />
+                    </TableCell>
+                    <Link href={`/products/${row.id}`}>
                       <TableCell component="th" scope="row" padding="none">
-                        <div className={classes.customersBlock}>
-                          <AccountCircleIcon className={classes.avatar} />
-                          <Typography
-                            className={classes.customerName}
-                            variant="body2"
-                          >
-                            {row.firstName} {row.lastName}
-                          </Typography>
-                        </div>
+                        <Typography className={classes.name} variant="body2">
+                          {row.reference}
+                        </Typography>
                       </TableCell>
                     </Link>
-                    <TableCell align="right">{row.lastSeen}</TableCell>
-                    <TableCell align="right">{row.orders}</TableCell>
-                    <TableCell align="right">{row.totalSpend}</TableCell>
-                    <TableCell align="right">{row.latestPurchase}</TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.width}</TableCell>
+                    <TableCell align="right">{row.height}</TableCell>
+                    <TableCell align="right">{row.stock}</TableCell>
+                    <TableCell align="right">{row.sales}</TableCell>
+                    <TableCell align="right">
+                      <SimpleButton
+                        name={"edit"}
+                        icon={<CreateIcon />}
+                        link={"/"}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}

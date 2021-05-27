@@ -5,6 +5,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
+import { useRouter } from "next/router";
 import moment from "moment";
 
 const useStyles = makeStyles({
@@ -14,17 +15,19 @@ const useStyles = makeStyles({
 });
 
 export default function Dashboard() {
+  const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
   const { customersArray } = useSelector(({ customers }) => customers);
+  const { username } = useSelector(({ login: { profile } }) => profile);
 
   useEffect(() => {
+    if (username === "") {
+      router.push("/login");
+    }
     dispatch(setPageName("Dashboard"));
   }, []);
 
-  const handleClick = () => {
-    dispatch(setPageName(namePage));
-  };
   return (
     <div className={classes.root}>
       {/* <CardComponent

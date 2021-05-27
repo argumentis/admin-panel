@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Field, reduxForm } from "redux-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ProductTable from "../table/index";
 import { useRouter } from "next/router";
-import { connect } from "react-redux";
 import { renderTextField, validate } from "./helper";
 import {
-  editCustomer,
-  deleteCustomer,
-} from "../../../store/modules/customerReducer";
+  editCategory,
+  deleteCategory,
+} from "../../../store/modules/categoriesReducer";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -64,20 +63,20 @@ let EditCategoryForm = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { pristine, submitting, handleSubmit, currentCategory } = props;
-  const { name, syncErrors } = useSelector(
+  const { values, syncErrors } = useSelector(
     ({ form: { categoryForm } }) => categoryForm
   );
 
   const handleDispatch = () => {
     if (!syncErrors) {
-      dispatch(editCustomer(currentCategory.id, name));
-      router.push("/customers");
+      dispatch(editCategory(currentCategory.id, values));
+      router.push("/categories");
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteCustomer([currentCategory.id]));
-    router.push("/customers");
+    dispatch(deleteCategory(currentCategory.id));
+    router.push("/categories");
   };
 
   return (

@@ -1,22 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Search from "../../shared/Search";
-import Button from "@material-ui/core/Button";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CustomersTable from "./table";
+import SimpleButton from "../../shared/SimpleButton";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
   root: {
     marginTop: "20px",
     display: "flex",
     flexDirection: "column",
-  },
-
-  button: {
-    color: "#4f3cc9",
-    borderRadius: "10px",
   },
 
   mainBlock: {
@@ -35,8 +31,13 @@ const useStyles = makeStyles({
 export default function Customers() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const router = useRouter();
+  const { username } = useSelector(({ login: { profile } }) => profile);
 
   useEffect(() => {
+    if (username === "") {
+      router.push("/login");
+    }
     dispatch(setPageName("Reviews"));
   }, []);
 
@@ -44,9 +45,7 @@ export default function Customers() {
     <div className={classes.root}>
       <div className={classes.headerBlock}>
         <Search />
-        <Button className={classes.button} startIcon={<AddOutlinedIcon />}>
-          Create
-        </Button>
+        <SimpleButton name={"Create"} icon={<AddOutlinedIcon />} link={"/"} />
       </div>
       <div className={classes.mainBlock}>
         <CustomersTable />

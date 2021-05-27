@@ -88,7 +88,7 @@ const CreateCustomerForm = (props) => {
   const handleDispatch = () => {
     if (!syncErrors) {
       dispatch(createCustomer(customerId, values));
-      router.push(`/customers/${customerId}`);
+      router.push("/customers");
     }
   };
 
