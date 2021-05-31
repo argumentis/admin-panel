@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 import { makeStyles } from "@material-ui/core/styles";
@@ -39,6 +39,9 @@ export default function Products() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [value, setValue] = useState("");
+  const { productsArray } = useSelector(({ products }) => products);
+  const { selectedCategory } = useSelector(({ categories }) => categories);
   const { username } = useSelector(({ login: { profile } }) => profile);
 
   useEffect(() => {
@@ -48,34 +51,31 @@ export default function Products() {
     dispatch(setPageName("Products"));
   }, []);
 
+  const filterResult = productsArray.filter((item) => {
+    if (selectedCategory === "0") return true;
+    return item.category === selectedCategory;
+  });
+
+  const searchResult = filterResult.filter((item) => {
+    if (!item.reference) return false;
+    return item.reference.toLowerCase().indexOf(value.toLowerCase()) > -1;
+  });
+
   return (
     <div className={classes.root}>
       <div className={classes.buttonBlock}>
-        <SimpleButton name={"Create"} icon={<AddOutlinedIcon />} link={"/"} />
+        <SimpleButton
+          name={"Create"}
+          icon={<AddOutlinedIcon />}
+          link={"/products/create"}
+        />
       </div>
       <div className={classes.mainBlock}>
-        <FilterBlock />
+        <FilterBlock value={value} setValue={setValue} />
         <div className={classes.content}>
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
-          <MediaCard />
+          {searchResult.map((item) => (
+            <MediaCard key={item.id} item={item} />
+          ))}
         </div>
       </div>
     </div>

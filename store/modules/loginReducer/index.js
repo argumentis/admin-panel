@@ -10,6 +10,7 @@ const initialState = {
         }
       : {},
 };
+
 export const clearProfile = () => {
   return {
     type: "CLEAR_PROFILE_DATA",

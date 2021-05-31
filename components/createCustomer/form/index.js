@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Field, reduxForm } from "redux-form";
-import { renderTextField, validate, renderPasswordField } from "./helper";
+import { validate } from "./helper";
+import { FormPasswordField } from "../../../shared/FormPasswordField";
+import { FormTextField } from "../../../shared/FormTextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Visibility from "@material-ui/icons/Visibility";
@@ -114,16 +116,16 @@ const CreateCustomerForm = (props) => {
           <Field
             className={classes.inputStyle}
             name="firstName"
-            component={renderTextField}
-            label="First Name"
+            component={FormTextField}
+            label="First Name *"
           />
         </div>
         <div>
           <Field
             className={classes.inputStyle}
             name="lastName"
-            component={renderTextField}
-            label="Last Name"
+            component={FormTextField}
+            label="Last Name *"
           />
         </div>
       </div>
@@ -131,15 +133,15 @@ const CreateCustomerForm = (props) => {
         <Field
           className={classes.inputStyle}
           name="email"
-          component={renderTextField}
-          label="Email"
+          component={FormTextField}
+          label="Email *"
         />
       </div>
       <div className={classes.horizontal}>
         <div>
           <Field
             className={classes.inputStyle}
-            component={renderTextField}
+            component={FormTextField}
             name="birthday"
             type="date"
             label="Birthday"
@@ -156,7 +158,7 @@ const CreateCustomerForm = (props) => {
         <Field
           className={classes.inputStyle}
           name="address"
-          component={renderTextField}
+          component={FormTextField}
           label="Address"
         />
       </div>
@@ -165,7 +167,7 @@ const CreateCustomerForm = (props) => {
           <Field
             className={classes.inputStyle}
             name="zipcode"
-            component={renderTextField}
+            component={FormTextField}
             label="Zipcode"
           />
         </div>
@@ -173,7 +175,7 @@ const CreateCustomerForm = (props) => {
           <Field
             className={classes.inputStyle}
             name="city"
-            component={renderTextField}
+            component={FormTextField}
             label="City"
           />
         </div>
@@ -188,7 +190,7 @@ const CreateCustomerForm = (props) => {
             name="password"
             label="Password"
             autoComplete="password"
-            component={renderPasswordField}
+            component={FormPasswordField}
             type={showPassword ? "text" : "password"}
             onChange={handleChange("password")}
             endAdornment={
@@ -210,7 +212,7 @@ const CreateCustomerForm = (props) => {
             name="confirmPassword"
             label="Confirm password"
             autoComplete="confirmPassword"
-            component={renderPasswordField}
+            component={FormPasswordField}
             type={showConfirmPassword ? "text" : "password"}
             onChange={handleChange("confirmPassword")}
             endAdornment={

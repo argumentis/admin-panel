@@ -8,7 +8,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ProductTable from "../table/index";
 import { useRouter } from "next/router";
-import { renderTextField, validate } from "./helper";
+import { FormTextField } from "../../../shared/FormTextField";
+import { validate } from "./helper";
 import {
   editCategory,
   deleteCategory,
@@ -85,7 +86,7 @@ let EditCategoryForm = (props) => {
         <Field
           className={classes.inputStyle}
           name="name"
-          component={renderTextField}
+          component={FormTextField}
           label="Name"
         />
       </div>
@@ -95,7 +96,7 @@ let EditCategoryForm = (props) => {
         <Button
           className={classes.button}
           type="submit"
-          onClick={handleDispatch}
+          onClick={FormTextField}
           disabled={pristine || submitting}
           startIcon={<SaveIcon />}
         >

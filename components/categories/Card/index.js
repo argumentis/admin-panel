@@ -9,6 +9,8 @@ import SimpleButton from "../../../shared/SimpleButton";
 import Typography from "@material-ui/core/Typography";
 import FilterIcon from "@material-ui/icons/Filter";
 import CreateIcon from "@material-ui/icons/Create";
+import { selectCategory } from "../../../store/modules/categoriesReducer";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +39,13 @@ const useStyles = makeStyles({
 
 export default function MediaCard({ item }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { image, name, id } = item;
+
+  const selectActiveCategory = () => {
+    dispatch(selectCategory(id));
+  };
+
   return (
     <Card className={classes.root}>
       <CardMedia className={classes.media} image={image} />
@@ -47,7 +55,12 @@ export default function MediaCard({ item }) {
         </Typography>
       </CardContent>
       <CardActions className={classes.buttonBlock}>
-        <SimpleButton name={"Products"} icon={<FilterIcon />} link={"/"} />
+        <SimpleButton
+          onClick={selectActiveCategory}
+          name={"Products"}
+          icon={<FilterIcon />}
+          link={"/products"}
+        />
         <SimpleButton
           name={"Edit"}
           icon={<CreateIcon />}

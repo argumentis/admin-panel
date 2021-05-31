@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Link from "next/link";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
@@ -31,20 +33,27 @@ const useStyles = makeStyles({
 
 import Typography from "@material-ui/core/Typography";
 
-export default function MediaCard() {
+export default function MediaCard({ item }) {
   const classes = useStyles();
+  const { image, reference, width, height, price, id } = item;
 
   return (
-    <div
-      style={{
-        backgroundImage: "url(https://marmelab.com/posters/business-10.jpeg)",
-      }}
-      className={classes.root}
-    >
-      <div className={classes.gradient}>
-        <Typography>Hands Clap</Typography>
-        <Typography variant="caption">33 x 33 22$</Typography>
+    <Link href={`/products/${id}`}>
+      <div
+        style={{
+          backgroundImage: `url(${image})`,
+        }}
+        className={classes.root}
+      >
+        <div className={classes.gradient}>
+          <Typography>{reference}</Typography>
+          <Typography variant="caption">{`${width}x${height}  ${price}$`}</Typography>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
+
+MediaCard.propTypes = {
+  item: PropTypes.object.isRequired,
+};

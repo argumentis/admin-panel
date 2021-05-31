@@ -13,12 +13,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleButton({ name, icon, link }) {
+export default function SimpleButton({ name, icon, link, ...custom }) {
   const classes = useStyles();
 
   return (
     <Link href={`${link}`}>
-      <Button className={classes.buttonStyle} startIcon={icon}>
+      <Button className={classes.buttonStyle} startIcon={icon} {...custom}>
         {name}
       </Button>
     </Link>

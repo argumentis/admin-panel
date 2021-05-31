@@ -1,13 +1,22 @@
 import { categoriesList } from "./constanst";
 
 const EDIT_CATEGORY = "EDIT_CATEGORY";
+const SELECT_CATEGORY = "SELECT_CATEGORY";
 const DELETE_CATEGORY = "DELETE_CATEGORY";
 
 const initialState = {
+  selectedCategory: "0",
   categoriesArray:
     typeof localStorage !== "undefined"
       ? JSON.parse(localStorage.getItem("categoriesArray")) || categoriesList
       : [],
+};
+
+export const selectCategory = (categoryId) => {
+  return {
+    type: "SELECT_CATEGORY",
+    id: categoryId,
+  };
 };
 
 export const editCategory = (categoryId, categoryName) => {
@@ -27,6 +36,9 @@ export const deleteCategory = (removedCategory) => {
 
 export const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SELECT_CATEGORY:
+      return { ...state, selectedCategory: action.id };
+
     case DELETE_CATEGORY:
       const filtredArray = state.categoriesArray.filter(
         (user) => user.id !== action.payload

@@ -148,7 +148,7 @@ export default function MainLayout({ children }) {
           </IconButton>
           <div className={classes.selectedPageName}>{openedPage}</div>
         </div>
-        <div className={classes.logoStyle}></div>
+        <div className={classes.logoStyle} />
         <ProfileBlock />
       </div>
       <Drawer
