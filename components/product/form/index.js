@@ -98,7 +98,6 @@ let EditProductForm = (props) => {
   const dispatch = useDispatch();
   const [state, setState] = useState({ selectTab: 0, category: "" });
   const { pristine, submitting, handleSubmit, currentProduct } = props;
-  const productId = uid();
   const { categoriesArray } = useSelector(({ categories }) => categories);
   const { values, syncErrors } = useSelector(
     ({ form: { productForm } }) => productForm

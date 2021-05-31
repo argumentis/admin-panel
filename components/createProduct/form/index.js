@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../../store/modules/productsReducer";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import TabPanel from "./components/TabPanel";
+import TabPanel from "./TabPanel";
 import { useRouter } from "next/router";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { uid } from "uid";
