@@ -96,7 +96,7 @@ let EditCategoryForm = (props) => {
         <Button
           className={classes.button}
           type="submit"
-          onClick={FormTextField}
+          onClick={handleDispatch}
           disabled={pristine || submitting}
           startIcon={<SaveIcon />}
         >
