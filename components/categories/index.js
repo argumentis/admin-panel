@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 // components
-import CardComponent from "./card";
+import MediaCard from "./card";
 // next
 import { useRouter } from "next/router";
 
@@ -33,7 +33,7 @@ export default function Categories() {
   return (
     <div className={classes.root}>
       {categoriesArray.map((item) => (
-        <CardComponent key={item.id} item={item} />
+        <MediaCard key={item.id} item={item} />
       ))}
     </div>
   );
