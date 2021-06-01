@@ -35,14 +35,14 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      {/* <CardComponent
+      {/* <MediaCard
         pathname={"/reviews"}
         buttonName={"see all reviews"}
         itemArray={"arr..."}
         name={"Pending Reviews"}
         icon={<CommentIcon fontSize="large" />}
       /> */}
-      <CardComponent
+      <MediaCard
         pathname={"/customers"}
         buttonName={"see all customers"}
         itemArray={customersArray.filter(
