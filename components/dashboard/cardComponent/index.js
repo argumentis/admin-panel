@@ -63,7 +63,7 @@ export default function MediaCard(props) {
   );
 }
 
-CardComponent.propTypes = {
+MediaCard.propTypes = {
   pathname: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   itemArray: PropTypes.array.isRequired,

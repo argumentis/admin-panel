@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
 // components
-// import MediaCard from "./cardComponent/index";
+import MediaCard from "./cardComponent/index";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
@@ -42,7 +42,7 @@ export default function Dashboard() {
         name={"Pending Reviews"}
         icon={<CommentIcon fontSize="large" />}
       /> */}
-      {/* <MediaCard
+      <MediaCard
         pathname={"/customers"}
         buttonName={"see all customers"}
         itemArray={customersArray.filter(
@@ -50,7 +50,7 @@ export default function Dashboard() {
         )}
         name={"New Customers"}
         icon={<PersonAddIcon fontSize="large" />}
-      /> */}
+      />
     </div>
   );
 }
