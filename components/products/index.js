@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 // components
 import FilterBlock from "./filterBlock";
-import MediaCard from "./card/index";
+import MediaCard from "./cardComponent/index";
 import SimpleButton from "../../shared/SimpleButton";
 // next
 import { useRouter } from "next/router";

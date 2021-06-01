@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CardComponent(props) {
+export default function MediaCard(props) {
   const classes = useStyles();
   const { pathname, buttonName, itemArray, name, icon } = props;
 

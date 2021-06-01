@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
 // components
-import CardComponent from "./card/index";
+import MediaCard from "./cardComponent/index";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
