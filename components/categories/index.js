@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
 // components
-import MediaCard from "./cardComponent/index";
+import MediaCard from "./card/index";
 // next
 import { useRouter } from "next/router";
 
