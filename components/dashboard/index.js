@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
-import CardComponent from "./Card";
+import moment from "moment";
+
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
+// components
+import CardComponent from "./card";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
+// next
 import { useRouter } from "next/router";
-import moment from "moment";
 
 const useStyles = makeStyles({
   root: {

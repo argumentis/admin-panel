@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { uid } from "uid";
+// material UI
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { makeStyles } from "@material-ui/core/styles";
+import SaveIcon from "@material-ui/icons/Save";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { MenuItem } from "@material-ui/core";
+// redux
 import { Field, reduxForm } from "redux-form";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../../store/modules/productsReducer";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
+// components
 import TabPanel from "./TabPanel";
-import { useRouter } from "next/router";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { uid } from "uid";
-import { FormTextField } from "../../../shared/FormTextField";
 import { validate, a11yProps } from "./helper";
-import { MenuItem } from "@material-ui/core";
+import { FormTextField } from "../../../shared/FormTextField";
+import FormButton from "../../../shared/FormButton";
+// next
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
   },
-
   appBar: {
     boxShadow: "none",
     borderBottom: "1px solid #e0e0e3",
   },
-
   button: {
     color: "#fff",
     backgroundColor: "#4f3cc9",
@@ -39,16 +41,13 @@ const useStyles = makeStyles(() => ({
       boxShadow: "0px 3px 5px rgba(0,0,0,0.6)",
     },
   },
-
   tabPanel: {
     padding: "8px 16px 16px 16px",
   },
-
   detailsTabPanel: {
     padding: "8px 16px 16px 16px",
     width: "300px",
   },
-
   inputStyle: {
     height: "80px",
     display: "flex",
@@ -58,7 +57,6 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   multilineInputStyle: {
     display: "flex",
     flexDirection: "column",
@@ -67,7 +65,6 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   horizontal: {
     display: "flex",
     justifyContent: "space-between",
@@ -75,19 +72,18 @@ const useStyles = makeStyles(() => ({
       width: "120px",
     },
   },
-
   shortInput: {
     width: "120px",
   },
 }));
 
 const CreateProductForm = (props) => {
+  const productId = uid();
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [state, setState] = useState({ selectTab: 0, category: "" });
   const { pristine, submitting, handleSubmit } = props;
-  const productId = uid();
+  const [state, setState] = useState({ selectTab: 0, category: "" });
   const { categoriesArray } = useSelector(({ categories }) => categories);
   const { values, syncErrors } = useSelector(
     ({ form: { productForm } }) => productForm
@@ -235,15 +231,14 @@ const CreateProductForm = (props) => {
         </TabPanel>
       </div>
 
-      <Button
+      <FormButton
         className={classes.button}
         type="submit"
         onClick={handleDispatch}
         disabled={pristine || submitting}
-        startIcon={<SaveIcon />}
-      >
-        save
-      </Button>
+        name={"save"}
+        icon={<SaveIcon />}
+      />
     </form>
   );
 };

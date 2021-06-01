@@ -1,4 +1,5 @@
 import React from "react";
+// components
 import Products from "../../components/products";
 import MainLayout from "../../layout";
 

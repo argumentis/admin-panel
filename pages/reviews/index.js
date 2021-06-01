@@ -1,4 +1,5 @@
 import React from "react";
+// components
 import Reviews from "../../components/reviews";
 import MainLayout from "../../layout";
 

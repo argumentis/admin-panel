@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+// material UI
+import { makeStyles } from "@material-ui/core/styles";
+import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import { makeStyles } from "@material-ui/core/styles";
+// components
 import FilterBlock from "./filterBlock";
-import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
-import MediaCard from "./Card";
+import MediaCard from "./card";
 import SimpleButton from "../../shared/SimpleButton";
+// next
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
@@ -14,11 +18,9 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
-
   mainBlock: {
     display: "flex",
   },
-
   content: {
     width: "100%",
     height: "100%",
@@ -26,7 +28,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexFlow: "row wrap",
   },
-
   buttonBlock: {
     display: "flex",
     justifyContent: "flex-end",

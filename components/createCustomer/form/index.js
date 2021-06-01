@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { uid } from "uid";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import SaveIcon from "@material-ui/icons/Save";
+// redux
 import { Field, reduxForm } from "redux-form";
+import { useDispatch, useSelector } from "react-redux";
+import { createCustomer } from "../../../store/modules/customerReducer";
+// components
 import { validate } from "./helper";
 import { FormPasswordField } from "../../../shared/FormPasswordField";
 import { FormTextField } from "../../../shared/FormTextField";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useDispatch, useSelector } from "react-redux";
-import { createCustomer } from "../../../store/modules/customerReducer";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
+import FormButton from "../../../shared/FormButton";
+// next
 import { useRouter } from "next/router";
-import { uid } from "uid";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,7 +23,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
-
   horizontal: {
     marginTop: "10px",
     display: "flex",
@@ -32,11 +31,9 @@ const useStyles = makeStyles(() => ({
       width: "255px",
     },
   },
-
   longBlock: {
     marginTop: "10px",
   },
-
   inputStyle: {
     height: "80px",
     display: "flex",
@@ -46,13 +43,11 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   passwordInputStyle: {
     width: "255px",
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   },
-
   passwordInputWrapper: {
     height: "97px",
   },
@@ -68,21 +63,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const initialState = {
-  password: "",
-  confirmPassword: "",
-  showPassword: false,
-  showConfirmPassword: false,
-};
-
 const CreateCustomerForm = (props) => {
   const router = useRouter();
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const [state, setState] = useState(initialState);
-  const { pristine, submitting, handleSubmit } = props;
-  const { showPassword, showConfirmPassword } = state;
   const customerId = uid();
+  const dispatch = useDispatch();
+  const { pristine, submitting, handleSubmit } = props;
   const { values, syncErrors } = useSelector(
     ({ form: { customerForm } }) => customerForm
   );
@@ -94,40 +80,24 @@ const CreateCustomerForm = (props) => {
     }
   };
 
-  const handleChange = (prop) => (event) => {
-    setState({ ...state, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setState({ ...state, showPassword: !state.showPassword });
-  };
-
-  const handleClickShowConfirmPassword = () => {
-    setState({ ...state, showConfirmPassword: !state.showConfirmPassword });
-  };
-
   return (
     <form className={classes.root} onSubmit={handleSubmit(validate)}>
       <Typography variant="h6" gutterBottom>
         Identify
       </Typography>
       <div className={classes.horizontal}>
-        <div>
-          <Field
-            className={classes.inputStyle}
-            name="firstName"
-            component={FormTextField}
-            label="First Name *"
-          />
-        </div>
-        <div>
-          <Field
-            className={classes.inputStyle}
-            name="lastName"
-            component={FormTextField}
-            label="Last Name *"
-          />
-        </div>
+        <Field
+          className={classes.inputStyle}
+          name="firstName"
+          component={FormTextField}
+          label="First Name *"
+        />
+        <Field
+          className={classes.inputStyle}
+          name="lastName"
+          component={FormTextField}
+          label="Last Name *"
+        />
       </div>
       <div className={classes.longBlock}>
         <Field
@@ -138,18 +108,16 @@ const CreateCustomerForm = (props) => {
         />
       </div>
       <div className={classes.horizontal}>
-        <div>
-          <Field
-            className={classes.inputStyle}
-            component={FormTextField}
-            name="birthday"
-            type="date"
-            label="Birthday"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </div>
+        <Field
+          className={classes.inputStyle}
+          component={FormTextField}
+          name="birthday"
+          type="date"
+          label="Birthday"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
       </div>
       <Typography variant="h6" gutterBottom>
         Address
@@ -163,22 +131,18 @@ const CreateCustomerForm = (props) => {
         />
       </div>
       <div className={classes.horizontal}>
-        <div>
-          <Field
-            className={classes.inputStyle}
-            name="zipcode"
-            component={FormTextField}
-            label="Zipcode"
-          />
-        </div>
-        <div>
-          <Field
-            className={classes.inputStyle}
-            name="city"
-            component={FormTextField}
-            label="City"
-          />
-        </div>
+        <Field
+          className={classes.inputStyle}
+          name="zipcode"
+          component={FormTextField}
+          label="Zipcode"
+        />
+        <Field
+          className={classes.inputStyle}
+          name="city"
+          component={FormTextField}
+          label="City"
+        />
       </div>
       <Typography variant="h6" gutterBottom>
         Password
@@ -191,19 +155,6 @@ const CreateCustomerForm = (props) => {
             label="Password"
             autoComplete="password"
             component={FormPasswordField}
-            type={showPassword ? "text" : "password"}
-            onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
           />
         </div>
         <div className={classes.passwordInputWrapper}>
@@ -213,33 +164,17 @@ const CreateCustomerForm = (props) => {
             label="Confirm password"
             autoComplete="confirmPassword"
             component={FormPasswordField}
-            type={showConfirmPassword ? "text" : "password"}
-            onChange={handleChange("confirmPassword")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowConfirmPassword}
-                  edge="end"
-                >
-                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
           />
         </div>
       </div>
-      <div>
-        <Button
-          className={classes.button}
-          type="submit"
-          onClick={handleDispatch}
-          disabled={pristine || submitting}
-          startIcon={<SaveIcon />}
-        >
-          save
-        </Button>
-      </div>
+      <FormButton
+        className={classes.button}
+        type="submit"
+        onClick={handleDispatch}
+        disabled={pristine || submitting}
+        name={"save"}
+        icon={<SaveIcon />}
+      />
     </form>
   );
 };

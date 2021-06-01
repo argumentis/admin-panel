@@ -1,7 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Link from "next/link";
 import PropTypes from "prop-types";
+// material UI
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+// next
+import Link from "next/link";
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +18,6 @@ const useStyles = makeStyles({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   },
-
   gradient: {
     background:
       "linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.4) 70%,rgba(0,0,0,0) 100%)",
@@ -30,8 +32,6 @@ const useStyles = makeStyles({
     },
   },
 });
-
-import Typography from "@material-ui/core/Typography";
 
 export default function MediaCard({ item }) {
   const classes = useStyles();

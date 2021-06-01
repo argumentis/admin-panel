@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// material UI
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { makeStyles } from "@material-ui/core/styles";
+import SaveIcon from "@material-ui/icons/Save";
+import DeleteIcon from "@material-ui/icons/Delete";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { MenuItem } from "@material-ui/core";
+// redux
 import { Field, reduxForm } from "redux-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import {
   editProduct,
   deleteProduct,
 } from "../../../store/modules/productsReducer";
-import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import DeleteIcon from "@material-ui/icons/Delete";
+// components
+import FormButton from "../../../shared/FormButton";
 import TabPanel from "./TabPanel";
-import { useRouter } from "next/router";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { uid } from "uid";
 import { FormTextField } from "../../../shared/FormTextField";
 import { validate, a11yProps } from "./helper";
-import { MenuItem } from "@material-ui/core";
+// next
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
   },
-
   appBar: {
     boxShadow: "none",
     borderBottom: "1px solid #e0e0e3",
   },
-
   button: {
     color: "#fff",
     backgroundColor: "#4f3cc9",
@@ -44,16 +44,13 @@ const useStyles = makeStyles(() => ({
       boxShadow: "0px 3px 5px rgba(0,0,0,0.6)",
     },
   },
-
   tabPanel: {
     padding: "8px 16px 16px 16px",
   },
-
   detailsTabPanel: {
     padding: "8px 16px 16px 16px",
     width: "300px",
   },
-
   inputStyle: {
     height: "80px",
     display: "flex",
@@ -63,7 +60,6 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   multilineInputStyle: {
     display: "flex",
     flexDirection: "column",
@@ -72,16 +68,13 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   horizontal: {
     display: "flex",
     justifyContent: "space-between",
   },
-
   shortInput: {
     width: "120px",
   },
-
   deleteButton: {
     color: "#f44336",
     width: "95px",
@@ -89,6 +82,10 @@ const useStyles = makeStyles(() => ({
     margin: "16px",
     padding: "0px",
     borderRadius: "10px",
+  },
+  image: {
+    borderRadius: "10px",
+    padding: "16px",
   },
 }));
 
@@ -135,7 +132,6 @@ let EditProductForm = (props) => {
             value={state.selectTab}
             indicatorColor="primary"
             onChange={handleChangeTab}
-            aria-label="simple tabs example"
           >
             <Tab label="image" {...a11yProps(0)} />
             <Tab label="details" {...a11yProps(1)} />
@@ -147,6 +143,12 @@ let EditProductForm = (props) => {
           index={0}
           className={classes.tabPanel}
         >
+          <img
+            className={classes.image}
+            src={currentProduct.image}
+            width={300}
+            height={250}
+          />
           <Field
             className={classes.inputStyle}
             name="image"
@@ -255,22 +257,20 @@ let EditProductForm = (props) => {
       </div>
 
       <div className={classes.horizontal}>
-        <Button
+        <FormButton
           className={classes.button}
           type="submit"
           onClick={handleDispatch}
           disabled={pristine || submitting}
-          startIcon={<SaveIcon />}
-        >
-          save
-        </Button>
-        <Button
+          name={"save"}
+          icon={<SaveIcon />}
+        />
+        <FormButton
           className={classes.deleteButton}
           onClick={handleDelete}
-          startIcon={<DeleteIcon />}
-        >
-          delete
-        </Button>
+          name={"delete"}
+          icon={<DeleteIcon />}
+        />
       </div>
     </form>
   );

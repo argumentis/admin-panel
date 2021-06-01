@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
+// material UI
+import { makeStyles } from "@material-ui/core/styles";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import { makeStyles } from "@material-ui/core/styles";
+// components
 import CreateCustomerForm from "./form/index";
+// next
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
@@ -27,6 +31,7 @@ export default function CreateCustomer() {
     }
     dispatch(setPageName("Create Customer"));
   }, []);
+
   return (
     <div className={classes.root}>
       <CreateCustomerForm />

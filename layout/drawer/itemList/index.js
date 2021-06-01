@@ -1,15 +1,18 @@
 import React, { useMemo, useState } from "react";
+import PropTypes from "prop-types";
+// material UI
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import NestedItemList from "../nestedItem";
 import { makeStyles } from "@material-ui/core/styles";
-import { useRouter } from "next/router";
-import PropTypes from "prop-types";
 import clsx from "clsx";
+// components
+import NestedItemList from "./NestedItem";
+//next
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export const useStyles = makeStyles(() => ({
@@ -43,11 +46,10 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ItemList(props) {
+export default function ItemList({ item, drawerStatus }) {
   const classes = useStyles();
   const router = useRouter();
   const [expanded, setExpanded] = useState(true);
-  const { item, drawerStatus } = props;
   const { nestedListItems, icon, name, pathname } = item;
 
   const handleClickExpand = () => setExpanded(!expanded);

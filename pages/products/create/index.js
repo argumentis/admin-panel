@@ -1,4 +1,5 @@
 import React from "react";
+// components
 import CreateProduct from "../../../components/createProduct/index";
 import MainLayout from "../../../layout/index";
 

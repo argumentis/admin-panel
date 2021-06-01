@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
+// material UI
+import { makeStyles } from "@material-ui/core/styles";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import CardComponent from "./Card";
-import { makeStyles } from "@material-ui/core/styles";
+// components
+import CardComponent from "./card";
+// next
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles({

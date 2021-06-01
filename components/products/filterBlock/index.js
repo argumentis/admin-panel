@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+// components
 import Search from "../../../shared/Search";
 import CategoriesFilter from "./filter";
 
@@ -30,3 +33,8 @@ export default function FilterBlock({ value, setValue }) {
     </div>
   );
 }
+
+FilterBlock.propTypes = {
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+};

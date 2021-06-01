@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,29 +10,28 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
-import TableHeader from "./components/TableHeader";
-import TableToolbar from "./components/TableToolbar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
+// components
+import TableHeader from "./components/TableHeader";
+import TableToolbar from "./components/TableToolbar";
 import { getComparator, stableSort } from "./helpers";
+// next
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
-
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
     borderRadius: "10px",
     border: "1px solid #e0e0e3",
   },
-
   table: {
     minWidth: 750,
   },
-
   visuallyHidden: {
     border: 0,
     clip: "rect(0 0 0 0)",
@@ -43,31 +43,26 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
-
   checkbox: {
     "& .Mui-checked": {
       color: "#4f3cc9",
     },
   },
-
   tableRow: {
     "& > *": {
       backgroundColor: "#fff",
     },
   },
-
   avatar: {
     width: "27px",
     height: "27px",
     color: "#bdbdbd",
   },
-
   customersBlock: {
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
   },
-
   customerName: {
     marginLeft: "10px",
     color: "#4f3cc9",

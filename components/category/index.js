@@ -1,10 +1,14 @@
 import React, { useEffect } from "react";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
-import EditCategoryForm from "./form/index";
-import { useRouter } from "next/router";
+// redux
 import { useSelector, useDispatch } from "react-redux";
+import { setPageName } from "../../store/modules/layoutReducer/index";
+// next
+import { useRouter } from "next/router";
 import Error from "next/error";
+// components
+import EditCategoryForm from "./form/index";
 
 const useStyles = makeStyles({
   root: {

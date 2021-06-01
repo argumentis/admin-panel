@@ -1,9 +1,10 @@
+import React from "react";
+// material UI
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import FilterIcon from "@material-ui/icons/Filter";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PeopleIcon from "@material-ui/icons/People";
 import MessageIcon from "@material-ui/icons/Message";
-import React from "react";
 
 export const listItems = [
   {

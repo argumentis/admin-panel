@@ -1,4 +1,5 @@
 import React from "react";
+// components
 import Dashboard from "../components/dashboard";
 import MainLayout from "../layout/index";
 

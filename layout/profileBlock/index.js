@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// material UI
 import Avatar from "@material-ui/core/Avatar";
 import HttpsIcon from "@material-ui/icons/Https";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +7,9 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+//components
 import ProfileEdit from "./ProfileEdit";
+// redux
 import { useSelector } from "react-redux";
 
 export const useStyles = makeStyles(() => ({

@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import ClearIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   searchStyle: {

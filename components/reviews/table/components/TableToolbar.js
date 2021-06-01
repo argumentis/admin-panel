@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+// material UI
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,6 +12,7 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
     display: "none",
@@ -29,18 +31,15 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: "1 1 100%",
   },
-
   buttonStyle: {
     color: "#4f3cc9",
     marginRight: "15px",
     borderRadius: "10px",
   },
-
   buttonDeleteStyle: {
     borderRadius: "10px",
     color: "#f44336",
   },
-
   buttonBlock: {
     display: "flex",
   },

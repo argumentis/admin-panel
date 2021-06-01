@@ -1,10 +1,12 @@
 import React from "react";
-import clsx from "clsx";
 import PropTypes from "prop-types";
+// material UI
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+// next
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -18,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
       color: "rgba(0, 0, 0, 0.54)",
     },
   },
-
   nestedListItemOpendedDrawer: {
     paddingLeft: "32px",
     height: "36px",
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
       color: "rgba(0, 0, 0, 0.54)",
     },
   },
-
   nestedListItemSelected: {
     "& .MuiListItemText-secondary": {
       fontSize: "16px",
@@ -36,16 +36,14 @@ const useStyles = makeStyles((theme) => ({
       color: "rgba(0, 0, 0)",
     },
   },
-
   listItemIconStyle: {
     minWidth: "40px",
   },
 }));
 
-export default function NestedItemList(props) {
+export default function NestedItemList({ nestedItem, drawerStatus }) {
   const classes = useStyles();
   const router = useRouter();
-  const { nestedItem, drawerStatus } = props;
   const { name, icon, pathname } = nestedItem;
 
   return (

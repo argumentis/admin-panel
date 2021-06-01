@@ -1,26 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
+// next
+import { useRouter } from "next/router";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
-import { Field, reduxForm } from "redux-form";
-import { useDispatch, useSelector, connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
-import ProductTable from "../table/index";
-import { useRouter } from "next/router";
-import { FormTextField } from "../../../shared/FormTextField";
-import { validate } from "./helper";
+// redux
+import { useDispatch, useSelector, connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 import {
   editCategory,
   deleteCategory,
 } from "../../../store/modules/categoriesReducer";
+// components
+import FormButton from "../../../shared/FormButton";
+import ProductTable from "./table";
+import { FormTextField } from "../../../shared/FormTextField";
+import { validate } from "./helper";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
   },
-
   horizontal: {
     marginTop: "10px",
     display: "flex",
@@ -29,7 +32,6 @@ const useStyles = makeStyles(() => ({
       width: "255px",
     },
   },
-
   inputStyle: {
     width: "255px",
     height: "80px",
@@ -40,7 +42,6 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   button: {
     color: "#fff",
     backgroundColor: "#4f3cc9",
@@ -51,7 +52,6 @@ const useStyles = makeStyles(() => ({
       boxShadow: "0px 3px 5px rgba(0,0,0,0.6)",
     },
   },
-
   deleteButton: {
     color: "#f44336",
     width: "95px",
@@ -90,25 +90,23 @@ let EditCategoryForm = (props) => {
           label="Name"
         />
       </div>
-      <ProductTable />
+      <ProductTable currentCategory={currentCategory} />
 
       <div className={classes.horizontal}>
-        <Button
+        <FormButton
           className={classes.button}
           type="submit"
           onClick={handleDispatch}
           disabled={pristine || submitting}
-          startIcon={<SaveIcon />}
-        >
-          save
-        </Button>
-        <Button
+          name={"save"}
+          icon={<SaveIcon />}
+        />
+        <FormButton
           className={classes.deleteButton}
           onClick={handleDelete}
-          startIcon={<DeleteIcon />}
-        >
-          delete
-        </Button>
+          name={"delete"}
+          icon={<DeleteIcon />}
+        />
       </div>
     </form>
   );

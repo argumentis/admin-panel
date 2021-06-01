@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
+// material UI
+import { makeStyles } from "@material-ui/core/styles";
+import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setPageName } from "../../store/modules/layoutReducer/index";
-import { makeStyles } from "@material-ui/core/styles";
+// components
 import Search from "../../shared/Search";
-import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import CustomersTable from "./table";
 import SimpleButton from "../../shared/SimpleButton";
+// next
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
@@ -14,12 +18,10 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
-
   mainBlock: {
     margin: "0px 25px 0px 25px",
     height: "500px",
   },
-
   headerBlock: {
     display: "flex",
     justifyContent: "space-between",

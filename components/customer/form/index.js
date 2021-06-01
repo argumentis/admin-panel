@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Field, reduxForm } from "redux-form";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useRouter } from "next/router";
-import { connect } from "react-redux";
-import { FormTextField } from "../../../shared/FormTextField";
-import { FormPasswordField } from "../../../shared/FormPasswordField";
-import { validate } from "./helper";
+// redux
+import { Field, reduxForm } from "redux-form";
+import { useDispatch, useSelector } from "react-redux";
 import {
   editCustomer,
   deleteCustomer,
 } from "../../../store/modules/customerReducer";
+// compomets
+import FormButton from "../../../shared/FormButton";
+import { FormTextField } from "../../../shared/FormTextField";
+import { FormPasswordField } from "../../../shared/FormPasswordField";
+import { validate } from "./helper";
+// next
+import { useRouter } from "next/router";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
-
   horizontal: {
     marginTop: "10px",
     display: "flex",
@@ -36,11 +35,9 @@ const useStyles = makeStyles(() => ({
       width: "255px",
     },
   },
-
   longBlock: {
     marginTop: "10px",
   },
-
   inputStyle: {
     height: "80px",
     display: "flex",
@@ -50,13 +47,11 @@ const useStyles = makeStyles(() => ({
       borderTopRightRadius: "10px",
     },
   },
-
   passwordInputStyle: {
     width: "255px",
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   },
-
   passwordInputWrapper: {
     height: "97px",
   },
@@ -77,20 +72,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const initialState = {
-  password: "",
-  confirmPassword: "",
-  showPassword: false,
-  showConfirmPassword: false,
-};
-
 let EditCustomerForm = (props) => {
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [state, setState] = useState(initialState);
   const { pristine, submitting, handleSubmit, currentCustomer } = props;
-  const { showPassword, showConfirmPassword } = state;
   const { values, syncErrors } = useSelector(
     ({ form: { customerForm } }) => customerForm
   );
@@ -105,18 +91,6 @@ let EditCustomerForm = (props) => {
   const handleDelete = () => {
     dispatch(deleteCustomer([currentCustomer.id]));
     router.push("/customers");
-  };
-
-  const handleChange = (prop) => (event) => {
-    setState({ ...state, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setState({ ...state, showPassword: !state.showPassword });
-  };
-
-  const handleClickShowConfirmPassword = () => {
-    setState({ ...state, showConfirmPassword: !state.showConfirmPassword });
   };
 
   return (
@@ -204,19 +178,6 @@ let EditCustomerForm = (props) => {
             label="Password"
             autoComplete="password"
             component={FormPasswordField}
-            type={showPassword ? "text" : "password"}
-            onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
           />
         </div>
         <div className={classes.passwordInputWrapper}>
@@ -226,39 +187,24 @@ let EditCustomerForm = (props) => {
             label="Confirm password"
             autoComplete="confirmPassword"
             component={FormPasswordField}
-            type={showConfirmPassword ? "text" : "password"}
-            onChange={handleChange("confirmPassword")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowConfirmPassword}
-                  edge="end"
-                >
-                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
           />
         </div>
       </div>
       <div className={classes.horizontal}>
-        <Button
+        <FormButton
           className={classes.button}
           type="submit"
           onClick={handleDispatch}
           disabled={pristine || submitting}
-          startIcon={<SaveIcon />}
-        >
-          save
-        </Button>
-        <Button
+          name={"save"}
+          icon={<SaveIcon />}
+        />
+        <FormButton
           className={classes.deleteButton}
           onClick={handleDelete}
-          startIcon={<DeleteIcon />}
-        >
-          delete
-        </Button>
+          name={"delete"}
+          icon={<DeleteIcon />}
+        />
       </div>
     </form>
   );

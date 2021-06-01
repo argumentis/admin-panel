@@ -1,11 +1,15 @@
 import React from "react";
-import Menu from "@material-ui/core/Menu";
 import PropTypes from "prop-types";
+// material UI
+import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+// component
 import LoginForm from "../../components/login/form";
+// redux
 import { clearProfile } from "../../store/modules/loginReducer";
 import { useSelector, useDispatch } from "react-redux";
+// next
 import { useRouter } from "next/router";
 
 export const useStyles = makeStyles(() => ({
@@ -28,12 +32,11 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ProfileEdit(props) {
+export default function ProfileEdit({ state, setState }) {
   const classes = useStyles();
   const router = useRouter();
   const dispatch = useDispatch();
   const { profile } = useSelector(({ login }) => login);
-  const { state, setState } = props;
   const { menuStatus } = state;
 
   const handleClose = () => {

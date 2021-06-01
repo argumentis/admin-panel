@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
+// redux
 import { Field, reduxForm } from "redux-form";
+import { useDispatch, useSelector, connect } from "react-redux";
+import { editProfile } from "../../../store/modules/loginReducer";
+// components
 import { validate } from "./helper";
 import { FormPasswordField } from "../../../shared/FormPasswordField";
 import { FormTextField } from "../../../shared/FormTextField";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { useDispatch, useSelector, connect } from "react-redux";
-import { editProfile } from "../../../store/modules/loginReducer";
-import Button from "@material-ui/core/Button";
+import FormButton from "../../../shared/FormButton";
+// next
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles(() => ({
@@ -20,25 +20,21 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
-
   longBlock: {
     display: "flex",
     flexDirection: "column",
   },
-
   inputStyle: {
     display: "flex",
     flexDirection: "column",
     marginBottom: "16px",
   },
-
   passwordInputWrapper: {
     marginBottom: "16px",
     "& > *": {
       width: "100%",
     },
   },
-
   button: {
     width: "100%",
     color: "#fff",
@@ -51,18 +47,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const initialState = {
-  password: "",
-  showPassword: false,
-};
-
 let LoginForm = (props) => {
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [state, setState] = useState(initialState);
   const { pristine, submitting, handleSubmit, nameButton } = props;
-  const { showPassword } = state;
   const { values, syncErrors } = useSelector(
     ({ form: { loginForm } }) => loginForm
   );
@@ -72,14 +61,6 @@ let LoginForm = (props) => {
       dispatch(editProfile(values));
       if (nameButton === "sign in") router.push("/");
     }
-  };
-
-  const handleChange = (prop) => (event) => {
-    setState({ ...state, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setState({ ...state, showPassword: !state.showPassword });
   };
 
   return (
@@ -97,29 +78,15 @@ let LoginForm = (props) => {
             label="Password"
             autoComplete="password"
             component={FormPasswordField}
-            type={showPassword ? "text" : "password"}
-            onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
           />
         </div>
-        <Button
+        <FormButton
           className={classes.button}
           type="submit"
           onClick={handleDispatch}
           disabled={pristine || submitting}
-        >
-          {nameButton}
-        </Button>
+          name={nameButton}
+        />
       </div>
     </form>
   );

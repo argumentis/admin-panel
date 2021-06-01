@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+// material UI
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
+// redux
 import { useDispatch } from "react-redux";
 import { deleteCustomer } from "../../../../store/modules/customerReducer";
 
@@ -30,18 +32,16 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: "1 1 100%",
   },
-
   buttonStyle: {
     color: "#f44336",
   },
 }));
 
 export default function TableToolbar(props) {
+  const dispatch = useDispatch();
   const classes = useToolbarStyles();
   const { state, setState } = props;
   const { selected } = state;
-
-  const dispatch = useDispatch();
 
   const handleDelete = () => {
     dispatch(deleteCustomer(selected));

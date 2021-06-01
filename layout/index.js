@@ -1,13 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+// material UI
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import { listItems } from "./constants";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
 import IconButton from "@material-ui/core/IconButton";
-import ItemList from "./itemList";
 import MenuIcon from "@material-ui/icons/Menu";
+// components
 import ProfileBlock from "./profileBlock";
+import DrawerComponent from "./drawer";
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { changeDrawerStatus } from "../store/modules/layoutReducer/index";
 
@@ -15,7 +16,6 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
-
   appBar: {
     display: "flex",
     justifyContent: "space-between",
@@ -28,38 +28,6 @@ export const useStyles = makeStyles((theme) => ({
     borderTop: "1px solid #e0e0e3",
     borderBottom: "1px solid #e0e0e3",
   },
-
-  drawer: {
-    width: "240px",
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-  },
-
-  drawerOpen: {
-    marginTop: "50px",
-    borderRight: "0px",
-    width: "240px",
-    overflow: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-
-  drawerClose: {
-    borderRight: "0px",
-    marginTop: "50px",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflow: "hidden",
-    width: theme.spacing(7) + 1,
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(7) + 1,
-    },
-  },
-
   toolbar: {
     display: "flex",
     alignItems: "center",
@@ -67,14 +35,12 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
   },
-
   logoStyle: {
     width: "235px",
     height: "23px",
     marginTop: "10px",
     backgroundImage: "url(/logo.PNG)",
   },
-
   selectedPageName: {
     marginTop: "12px",
     marginLeft: "12px",
@@ -84,26 +50,18 @@ export const useStyles = makeStyles((theme) => ({
     color: "#808080",
     fontWeight: "500",
   },
-
-  listStyle: {
-    paddingTop: "6px",
-  },
-
   drawerButtonBlock: {
     display: "flex",
     marginLeft: "25px",
   },
-
   drawerButton: {
     transform: "rotate(0deg)",
     transition: "transform 195ms",
   },
-
   drawerButtonClicked: {
     transform: "rotate(180deg)",
     transition: "transform 195ms",
   },
-
   content: {
     marginTop: "55px",
     zIndex: "1",
@@ -116,14 +74,6 @@ export default function MainLayout({ children }) {
   const classes = useStyles();
   const { layout } = useSelector((state) => state);
   const { drawerStatus, openedPage } = layout;
-
-  const listItemsComponents = useMemo(
-    () =>
-      listItems.map((item) => (
-        <ItemList key={item.name} item={item} drawerStatus={drawerStatus} />
-      )),
-    [drawerStatus]
-  );
 
   const handleDrawerToggle = () => {
     dispatch(changeDrawerStatus());
@@ -151,22 +101,12 @@ export default function MainLayout({ children }) {
         <div className={classes.logoStyle} />
         <ProfileBlock />
       </div>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: drawerStatus,
-          [classes.drawerClose]: !drawerStatus,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: drawerStatus,
-            [classes.drawerClose]: !drawerStatus,
-          }),
-        }}
-      >
-        <List className={classes.listStyle}>{listItemsComponents}</List>
-      </Drawer>
+      <DrawerComponent />
       <main className={classes.content}>{children}</main>
     </div>
   );
 }
+
+MainLayout.propTypes = {
+  children: PropTypes.object.isRequired,
+};

@@ -1,9 +1,12 @@
 import React from "react";
+// material UI
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import HttpsIcon from "@material-ui/icons/Https";
 import { makeStyles } from "@material-ui/core/styles";
+// redux
 import { useSelector } from "react-redux";
+// components
 import LoginForm from "./form";
 
 export const useStyles = makeStyles(() => ({
@@ -27,17 +30,14 @@ export const useStyles = makeStyles(() => ({
       borderRadius: "10px",
     },
   },
-
   avatarStyle: {
     backgroundColor: "#283593",
     margin: "16px",
   },
-
   hintStyle: {
     color: "#9e9e9e",
     marginTop: "0",
   },
-
   formStyle: {
     width: "100%",
     padding: "16px",
