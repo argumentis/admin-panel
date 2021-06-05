@@ -16,6 +16,9 @@ import Link from "next/link";
 
 const useStyles = makeStyles({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     minWidth: 275,
     boxShadow: "none",
     border: "1px solid #e0e0e3",
@@ -38,7 +41,7 @@ export default function MediaCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent style={{ height: "90%" }}>
+      <CardContent >
         <CardHeader
           pathname={pathname}
           name={name}
