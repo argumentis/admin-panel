@@ -160,7 +160,6 @@ export default function CustomersTable({ searchResult }) {
                     <TableRow
                       className={classes.tableRow}
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -172,6 +171,7 @@ export default function CustomersTable({ searchResult }) {
                         padding="checkbox"
                       >
                         <Checkbox
+                          onClick={(event) => handleClick(event, row.id)}
                           className={classes.checkbox}
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}

@@ -12,6 +12,9 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+// redux
+import { useDispatch } from "react-redux";
+import { deleteReview, changeStatusReview, } from "../../../../store/modules/reviewReducer";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -46,8 +49,25 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 export default function TableToolbar(props) {
+  const dispatch = useDispatch();
   const classes = useToolbarStyles();
   const { numSelected, state, setState } = props;
+  const { selected } = state;
+
+  const handleAcceptReview = () => {
+    dispatch(changeStatusReview(selected, "accept"));
+    setState({ ...state, selected: [] });
+  };
+
+  const handleRejectReview = () => {
+    dispatch(changeStatusReview(selected, "reject"));
+    setState({ ...state, selected: [] });
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteReview(selected));
+    setState({ ...state, selected: [] });
+  };
 
   const hanldeClearCheked = () => {
     setState({ ...state, selected: [] });
@@ -72,17 +92,26 @@ export default function TableToolbar(props) {
       </Typography>
       <div className={classes.buttonBlock}>
         <Tooltip title="Accept">
-          <Button className={classes.buttonStyle} startIcon={<ThumbUpIcon />}>
+          <Button
+            className={classes.buttonStyle}
+            onClick={handleAcceptReview}
+            startIcon={<ThumbUpIcon />}
+          >
             Accept
           </Button>
         </Tooltip>
         <Tooltip title="Reject">
-          <Button className={classes.buttonStyle} startIcon={<ThumbDownIcon />}>
+          <Button
+            className={classes.buttonStyle}
+            onClick={handleRejectReview}
+            startIcon={<ThumbDownIcon />}
+          >
             Reject
           </Button>
         </Tooltip>
         <Tooltip title="Delete">
           <Button
+            onClick={handleDelete}
             className={classes.buttonDeleteStyle}
             startIcon={<DeleteIcon />}
           >

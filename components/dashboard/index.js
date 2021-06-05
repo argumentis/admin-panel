@@ -23,6 +23,7 @@ export default function Dashboard() {
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { reviewsArray } = useSelector(({ reviews }) => reviews);
   const { customersArray } = useSelector(({ customers }) => customers);
   const { username } = useSelector(({ login: { profile } }) => profile);
 
@@ -35,13 +36,13 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      {/* <MediaCard
+      <MediaCard
         pathname={"/reviews"}
         buttonName={"see all reviews"}
-        itemArray={"arr..."}
+        itemArray={reviewsArray.filter((item) => item.status === "pending")}
         name={"Pending Reviews"}
         icon={<CommentIcon fontSize="large" />}
-      /> */}
+      />
       <MediaCard
         pathname={"/customers"}
         buttonName={"see all customers"}

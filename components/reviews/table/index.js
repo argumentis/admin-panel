@@ -1,52 +1,17 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 // maretial UI
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Typography from "@material-ui/core/Typography";
 // components
 import TableHeader from "./components/TableHeader";
 import TableToolbar from "./components/TableToolbar";
+import TableRowItem from "./components/TableRowItem";
 import { getComparator, stableSort } from "./helpers";
-
-function createData(
-  id,
-  customer,
-  lastCustomer,
-  lastSeen,
-  orders,
-  totalSpend,
-  latestPurchase,
-  news
-) {
-  return {
-    id,
-    customer,
-    lastCustomer,
-    lastSeen,
-    orders,
-    totalSpend,
-    latestPurchase,
-    news,
-  };
-}
-
-const rows = [
-  createData(1, "Cupcake", "sdf", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData(2, "Donut", "sdg", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData(3, "Eclair", "sdfg", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
-  createData(4, "Cupcake1", "rggr", 305, 3.7, 67, 4.3, <ClearOutlinedIcon />),
-  createData(5, "Donut1", "wrwh", 452, 25.0, 51, 4.9, <ClearOutlinedIcon />),
-  createData(6, "Eclair1", "Cujtjp", 262, 16.0, 24, 6.0, <ClearOutlinedIcon />),
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,35 +42,35 @@ const useStyles = makeStyles((theme) => ({
       color: "#4f3cc9",
     },
   },
-  tableRow: {
-    "& > *": {
-      backgroundColor: "#fff",
+  headerCheckbox: {
+    paddingLeft: "10px",
+    "& .Mui-checked": {
+      color: "#4f3cc9",
     },
   },
-  avatar: {
-    width: "27px",
-    height: "27px",
-    color: "#bdbdbd",
-  },
-  customersBlock: {
-    display: "flex",
-    alignItems: "center",
-  },
-  customerName: {
-    marginLeft: "10px",
-    color: "#4f3cc9",
+  tableBody: {
+    "& .Mui-selected": {
+      backgroundColor: "rgba(0, 0, 0, 0.08)",
+    },
+    "& .Mui-selected:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.08)",
+    },
   },
 }));
 
 const initialState = {
   order: "asc",
-  orderBy: "customer",
+  orderBy: "date",
   selected: [],
   page: 0,
   rowsPerPage: 5,
 };
 
-export default function CustomersTable() {
+export default function ReviewsTable({
+  searchResult,
+  drawerStatus,
+  setDrawerStatus,
+}) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
   const { order, orderBy, selected, page, rowsPerPage } = state;
@@ -117,30 +82,11 @@ export default function CustomersTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = searchResult.map((n) => n.id);
       setState({ ...state, selected: newSelecteds });
       return;
     }
     setState({ ...state, selected: [] });
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setState({ ...state, selected: newSelected });
   };
 
   const handleChangePage = (event, newPage) => {
@@ -179,58 +125,26 @@ export default function CustomersTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={searchResult.length}
             />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+            <TableBody className={classes.tableBody}>
+              {stableSort(searchResult, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      className={classes.tableRow}
-                      hover
-                      onClick={(event) => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
+                    <TableRowItem
                       key={row.id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell
-                        className={classes.checkbox}
-                        padding="checkbox"
-                      >
-                        <Checkbox
-                          className={classes.checkbox}
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        <div className={classes.customersBlock}>
-                          <AccountCircleIcon className={classes.avatar} />
-                          <Typography
-                            className={classes.customerName}
-                            variant="body2"
-                          >
-                            {row.customer} {row.lastCustomer}
-                          </Typography>
-                        </div>
-                      </TableCell>
-                      <TableCell align="right">{row.lastSeen}</TableCell>
-                      <TableCell align="right">{row.orders}</TableCell>
-                      <TableCell align="right">{row.totalSpend}</TableCell>
-                      <TableCell align="right">{row.latestPurchase}</TableCell>
-                      <TableCell align="left">{row.news}</TableCell>
-                    </TableRow>
+                      drawerStatus={drawerStatus}
+                      setDrawerStatus={setDrawerStatus}
+                      isItemSelected={isItemSelected}
+                      labelId={labelId}
+                      state={state}
+                      setState={setState}
+                      row={row}
+                    />
                   );
                 })}
             </TableBody>
@@ -239,7 +153,7 @@ export default function CustomersTable() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={rows.length}
+          count={searchResult.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
@@ -249,3 +163,7 @@ export default function CustomersTable() {
     </div>
   );
 }
+
+ReviewsTable.propTypes = {
+  searchResult: PropTypes.array.isRequired,
+};

@@ -38,7 +38,7 @@ export default function MediaCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent>
+      <CardContent style={{ height: "90%" }}>
         <CardHeader
           pathname={pathname}
           name={name}

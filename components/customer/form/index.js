@@ -8,10 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // redux
 import { Field, reduxForm } from "redux-form";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  editCustomer,
-  deleteCustomer,
-} from "../../../store/modules/customerReducer";
+import { editCustomer, deleteCustomer,} from "../../../store/modules/customerReducer";
 // compomets
 import FormButton from "../../../shared/FormButton";
 import { FormTextField } from "../../../shared/FormTextField";

@@ -9,10 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 // redux
 import { useDispatch, useSelector, connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import {
-  editCategory,
-  deleteCategory,
-} from "../../../store/modules/categoriesReducer";
+import { editCategory, deleteCategory } from "../../../store/modules/categoriesReducer";
 // components
 import FormButton from "../../../shared/FormButton";
 import ProductTable from "./table";

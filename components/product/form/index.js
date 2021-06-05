@@ -12,10 +12,7 @@ import { MenuItem } from "@material-ui/core";
 // redux
 import { Field, reduxForm } from "redux-form";
 import { useDispatch, useSelector, connect } from "react-redux";
-import {
-  editProduct,
-  deleteProduct,
-} from "../../../store/modules/productsReducer";
+import { editProduct, deleteProduct, } from "../../../store/modules/productsReducer";
 // components
 import FormButton from "../../../shared/FormButton";
 import TabPanel from "./TabPanel";

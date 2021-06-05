@@ -27,7 +27,7 @@ export default function TableHeader(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell className={classes.checkbox} padding="checkbox">
+        <TableCell className={classes.headerCheckbox} padding="checkbox">
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
