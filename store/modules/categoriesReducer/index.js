@@ -43,7 +43,6 @@ export const categoriesReducer = (state = initialState, action) => {
       const filtredArray = state.categoriesArray.filter(
         (user) => user.id !== action.payload
       );
-      console.log(filtredArray);
       localStorage.setItem("categoriesArray", JSON.stringify(filtredArray));
 
       return {
