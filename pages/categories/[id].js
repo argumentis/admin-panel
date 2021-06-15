@@ -1,7 +1,7 @@
 import React from "react";
 // components
 import MainLayout from "layouts/main";
-import Category from "components/Category";
+import Category from "components/Category/index";
 
 export default function CustomerPage() {
   return (
