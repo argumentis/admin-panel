@@ -1,6 +1,6 @@
 import React from "react";
 // components
-import CreateCustomer from "components/CreateCustomer/index";
+import CreateCustomer from "components/CreateCustomer";
 import MainLayout from "layouts/main";
 
 export default function CustomersPage() {

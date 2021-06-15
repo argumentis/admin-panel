@@ -1,6 +1,6 @@
 import React from "react";
 // components
-import Login from "components/Login/index";
+import Login from "components/Login";
 
 export default function LoginPage() {
   return <Login />;
