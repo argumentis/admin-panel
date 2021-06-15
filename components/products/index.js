@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { connect } from "react-redux";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import FilterBlock from "./filterBlock";
-import MediaCard from "./card/index";
-import SimpleButton from "../../shared/SimpleButton";
+import FilterBlock from "./FilterBlock";
+import MediaCard from "./Card";
+import SimpleButton from "../Button";
 // next
 import { useRouter } from "next/router";
 
@@ -36,27 +36,41 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Products() {
+const mapStateToProps = (store) => {
+  const { productsArray } = store.products;
+  const { selectedCategory } = store.categories;
+  const { username } = store.login.profile;
+  return {
+    productsArray,
+    selectedCategory,
+    username,
+  };
+};
+
+const Products = ({
+  productsArray,
+  selectedCategory,
+  username,
+  setPageName,
+}) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const router = useRouter();
   const [value, setValue] = useState("");
-  const { productsArray } = useSelector(({ products }) => products);
-  const { selectedCategory } = useSelector(({ categories }) => categories);
-  const { username } = useSelector(({ login: { profile } }) => profile);
 
   useEffect(() => {
     if (username === "") {
       router.push("/login");
     }
-    dispatch(setPageName("Products"));
+    setPageName("Products");
   }, []);
 
+  // sort products array from selected category
   const filterResult = productsArray.filter((item) => {
     if (selectedCategory === "0") return true;
     return item.category === selectedCategory;
   });
 
+  // filter sorted array from search result
   const searchResult = filterResult.filter((item) => {
     if (!item.reference) return false;
     return item.reference.toLowerCase().indexOf(value.toLowerCase()) > -1;
@@ -81,4 +95,6 @@ export default function Products() {
       </div>
     </div>
   );
-}
+};
+
+export default connect(mapStateToProps, { setPageName })(Products);

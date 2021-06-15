@@ -9,10 +9,10 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 // components
-import { ratingStar } from "../../../createReview/form/constants";
+import { ratingStar } from "../../../ReviewForm/constants";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveReview } from "../../../../store/modules/reviewReducer";
+import { setActiveReview } from "redux/modules/reviews/actionCreators";
 
 const useStyles = makeStyles((theme) => ({
   checkbox: {

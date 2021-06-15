@@ -10,10 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import FilterIcon from "@material-ui/icons/Filter";
 import CreateIcon from "@material-ui/icons/Create";
 // redux
-import { selectCategory } from "../../../store/modules/categoriesReducer";
+import { selectCategory } from "redux/modules/categories/actionCreators";
 import { useDispatch } from "react-redux";
 // components
-import SimpleButton from "../../../shared/SimpleButton";
+import SimpleButton from "../../Button";
 
 const useStyles = makeStyles({
   root: {

@@ -6,10 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import CommentIcon from "@material-ui/icons/Comment";
 // components
-import MediaCard from "./card/index";
+import MediaCard from "./Card";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // next
 import { useRouter } from "next/router";
 

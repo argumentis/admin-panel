@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // next
 import Link from "next/link";
 //components
-import { ratingStar } from "../../createReview/form/constants";
+import { ratingStar } from "../../ReviewForm/constants";
 
 const useStyles = makeStyles({
   secondaryText: {

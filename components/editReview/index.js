@@ -9,10 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveReview } from "../../store/modules/reviewReducer";
+import { setActiveReview } from "redux/modules/reviews/actionCreators";
 // components
-import { ratingStar } from "../createReview/form/constants";
-import Comment from "./components/Comment";
+import { ratingStar } from "../ReviewForm/constants";
+import Comment from "./Comment";
 //next
 import Link from "next/link";
 
@@ -118,7 +118,9 @@ export default function EditReview({ drawerStatus, setDrawerStatus }) {
                 <Typography variant="caption" display="block" gutterBottom>
                   Customer
                 </Typography>
-                <Link href={`/customers/${reviewItem[0] && reviewItem[0].customer}`} >
+                <Link
+                  href={`/customers/${reviewItem[0] && reviewItem[0].customer}`}
+                >
                   <div className={classes.customersBlock}>
                     <AccountCircleIcon className={classes.avatar} />
                     <Typography
@@ -126,8 +128,15 @@ export default function EditReview({ drawerStatus, setDrawerStatus }) {
                       variant="body2"
                     >
                       {customersArray
-                        .filter((item) => reviewItem[0] ? item.id === reviewItem[0].customer : "undefined")
-                        .map((customer) => `${customer.firstName} ${customer.lastName}`)}
+                        .filter((item) =>
+                          reviewItem[0]
+                            ? item.id === reviewItem[0].customer
+                            : "undefined"
+                        )
+                        .map(
+                          (customer) =>
+                            `${customer.firstName} ${customer.lastName}`
+                        )}
                     </Typography>
                   </div>
                 </Link>
@@ -140,14 +149,20 @@ export default function EditReview({ drawerStatus, setDrawerStatus }) {
               </Typography>
             </div>
             <div className={classes.verticalAlign}>
-              <Link href={`/products/${reviewItem[0] && reviewItem[0].product}`}>
+              <Link
+                href={`/products/${reviewItem[0] && reviewItem[0].product}`}
+              >
                 <div>
                   <Typography variant="caption" display="block" gutterBottom>
                     Product
                   </Typography>
                   <Typography className={classes.nameProduct} variant="body2">
                     {productsArray
-                      .filter((item) => reviewItem[0] ? item.id === reviewItem[0].product : "undefined")
+                      .filter((item) =>
+                        reviewItem[0]
+                          ? item.id === reviewItem[0].product
+                          : "undefined"
+                      )
                       .map((product) => product.reference)}
                   </Typography>
                 </div>
@@ -157,7 +172,11 @@ export default function EditReview({ drawerStatus, setDrawerStatus }) {
                   Rating
                 </Typography>
                 {ratingStar
-                  .filter((item) =>reviewItem[0] ? item.id === reviewItem[0].rating : "undefined")
+                  .filter((item) =>
+                    reviewItem[0]
+                      ? item.id === reviewItem[0].rating
+                      : "undefined"
+                  )
                   .map((rating) => rating.image)}
               </Typography>
             </div>

@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // next
 import { useRouter } from "next/router";
 import Error from "next/error";
 // components
-import EditCategoryForm from "./form/index";
+import CategoryForm from "../CategoryForm";
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +42,7 @@ export default function Category() {
   return (
     <div className={classes.root}>
       {currentCategory ? (
-        <EditCategoryForm currentCategory={currentCategory} />
+        <CategoryForm initialValues={currentCategory} />
       ) : (
         <Error statusCode={404} />
       )}

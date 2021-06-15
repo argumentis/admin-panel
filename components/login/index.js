@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { useSelector } from "react-redux";
 // components
-import LoginForm from "./form";
+import LoginForm from "../LoginForm";
 
 export const useStyles = makeStyles(() => ({
   root: {
@@ -56,7 +56,7 @@ export default function Login() {
         </Avatar>
         <div className={classes.hintStyle}>Hint: demo / demo</div>
         <div className={classes.formStyle}>
-          <LoginForm profile={profile} nameButton={"sign in"} />
+          <LoginForm nameButton={"sign in"} />
         </div>
       </Paper>
     </div>

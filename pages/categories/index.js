@@ -1,7 +1,7 @@
 import React from "react";
 // components
-import Categories from "../../components/categories";
-import MainLayout from "../../layout";
+import Categories from "components/Categories";
+import MainLayout from "layouts/main";
 
 export default function CategoriesPage() {
   return (

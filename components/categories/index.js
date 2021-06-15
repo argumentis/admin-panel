@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import MediaCard from "./card/index";
+import MediaCard from "./Card";
 // next
 import { useRouter } from "next/router";
 

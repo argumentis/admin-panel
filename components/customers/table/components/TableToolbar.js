@@ -12,7 +12,7 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import IconButton from "@material-ui/core/IconButton";
 // redux
 import { useDispatch } from "react-redux";
-import { deleteCustomer } from "../../../../store/modules/customerReducer";
+import { deleteCustomer } from "redux/modules/customers/actionCreators";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {

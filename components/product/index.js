@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 // material UI
 import { makeStyles } from "@material-ui/core/styles";
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { connect } from "react-redux";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import EditProductForm from "./form/index";
+import ProductForm from "../ProductForm";
 // next
 import { useRouter } from "next/router";
 import Error from "next/error";
@@ -20,33 +20,44 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Product() {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { username } = useSelector(({ login: { profile } }) => profile);
-  const { productsArray } = useSelector(({ products }) => products);
+const mapStateToProps = (store) => {
+  const { productsArray } = store.products;
+  const { username } = store.login.profile;
+  return {
+    productsArray,
+    username,
+  };
+};
 
+const Product = ({ productsArray, username, setPageName }) => {
+  const classes = useStyles();
+  const router = useRouter();
+
+  // find current product from router id
   const currentProduct = productsArray.find(
     (product) => product.id === router.query.id
   );
 
   useEffect(() => {
+    // user login check
     if (username === "") {
       router.push("/login");
     }
+    // set page name
     if (currentProduct) {
-      dispatch(setPageName(`#${currentProduct.reference}`));
+      setPageName(`#${currentProduct.reference}`);
     }
   }, [currentProduct]);
 
   return (
     <div className={classes.root}>
       {currentProduct ? (
-        <EditProductForm currentProduct={currentProduct} />
+        <ProductForm initialValues={currentProduct} />
       ) : (
         <Error statusCode={404} />
       )}
     </div>
   );
-}
+};
+
+export default connect(mapStateToProps, { setPageName })(Product);

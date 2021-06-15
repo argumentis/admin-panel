@@ -4,12 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import Search from "../../shared/Search";
-import ReviewsTable from "./table";
-import SimpleButton from "../../shared/SimpleButton";
-import EditReview from "../editReview";
+import Search from "../Search";
+import ReviewsTable from "./Table";
+import SimpleButton from "../Button";
+import EditReview from "../EditReview";
 // next
 import { useRouter } from "next/router";
 
@@ -47,8 +47,11 @@ export default function Customers() {
       .map((object) => object.firstName);
 
     if (!item.customer) return false;
-
-    return customerName[0].toLowerCase().indexOf(value.toLowerCase()) > -1;
+    return (
+      customerName[0] 
+        ? (customerName[0].toLowerCase().indexOf(value.toLowerCase()) > -1) 
+        : ('Deleted Customer'.toLowerCase().indexOf(value.toLowerCase()) > -1)
+    );
   });
 
   useEffect(() => {

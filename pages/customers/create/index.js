@@ -1,7 +1,7 @@
 import React from "react";
 // components
-import CreateCustomer from "../../../components/createCustomer/index";
-import MainLayout from "../../../layout/index";
+import CreateCustomer from "components/CreateCustomer";
+import MainLayout from "layouts/main";
 
 export default function CustomersPage() {
   return (

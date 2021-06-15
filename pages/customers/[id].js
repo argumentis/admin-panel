@@ -1,7 +1,7 @@
 import React from "react";
 // components
-import MainLayout from "../../layout";
-import Customer from "../../components/customer";
+import MainLayout from "layouts/main";
+import Customer from "components/Customer";
 
 export default function CustomerPage() {
   return (

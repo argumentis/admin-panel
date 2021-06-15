@@ -1,7 +1,7 @@
 import React from "react";
 // components
-import Dashboard from "../components/dashboard";
-import MainLayout from "../layout/index";
+import Dashboard from "../components/Dashboard";
+import MainLayout from "../layouts/main";
 
 export default function DashboardPage() {
   return (

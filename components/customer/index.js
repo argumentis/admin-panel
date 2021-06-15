@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import EditCustomerForm from "./form/index";
+import CustomerForm from "../CustomerForm";
 // next
 import { useRouter } from "next/router";
 import Error from "next/error";
@@ -45,7 +45,7 @@ export default function Customer() {
   return (
     <div className={classes.root}>
       {currentCustomer ? (
-        <EditCustomerForm currentCustomer={currentCustomer} />
+        <CustomerForm initialValues={currentCustomer} />
       ) : (
         <Error statusCode={404} />
       )}

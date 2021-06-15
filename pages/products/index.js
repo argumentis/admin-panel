@@ -1,7 +1,7 @@
 import React from "react";
 // components
-import Products from "../../components/products";
-import MainLayout from "../../layout";
+import Products from "components/Products";
+import MainLayout from "layouts/main";
 
 export default function ProductPage() {
   return (

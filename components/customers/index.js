@@ -4,11 +4,11 @@ import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { setPageName } from "../../store/modules/layoutReducer/index";
+import { setPageName } from "redux/modules/layout/actionCreators";
 // components
-import Search from "../../shared/Search";
-import CustomersTable from "./table";
-import SimpleButton from "../../shared/SimpleButton";
+import Search from "../Search";
+import CustomersTable from "./Table";
+import SimpleButton from "../Button";
 // next
 import { useRouter } from "next/router";
 

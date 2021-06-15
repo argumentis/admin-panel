@@ -14,7 +14,7 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 // redux
 import { useDispatch } from "react-redux";
-import { deleteReview, changeStatusReview, } from "../../../../store/modules/reviewReducer";
+import { deleteReview, changeStatusReview, } from "redux/modules/reviews/actionCreators";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
