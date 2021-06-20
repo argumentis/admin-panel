@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { uid } from "uid";
 // material UI
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,11 +13,7 @@ import { MenuItem } from "@material-ui/core";
 import { compose } from "redux";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import {
-  editProduct,
-  deleteProduct,
-  createProduct,
-} from "redux/modules/products/actionCreators";
+import { deleteProduct } from "redux/modules/products/actionCreators";
 // components
 import FormButton from "../formComponents/FormButton";
 import TabPanel from "./TabPanel";
@@ -94,10 +89,8 @@ const useStyles = makeStyles(() => ({
 
 const mapStateToProps = (store) => {
   const { categoriesArray } = store.categories;
-  const { productForm } = store.form;
   return {
     categoriesArray,
-    productForm,
   };
 };
 
@@ -106,14 +99,10 @@ const ProductForm = ({
   submitting,
   handleSubmit,
   initialValues,
-  editProduct,
   deleteProduct,
-  createProduct,
-  productForm,
   categoriesArray,
 }) => {
   const router = useRouter();
-  const productId = uid();
   const classes = useStyles();
   const [state, setState] = useState({ selectTab: 0, category: "" });
 
@@ -125,23 +114,13 @@ const ProductForm = ({
     setState({ ...state, category: event.target.value });
   };
 
-  const handleDispatch = () => {
-    if(!productForm.syncErrors) {
-      router.push("/products");
-      if (initialValues) {
-        return editProduct(initialValues.id, productForm.values);
-      }
-      return createProduct(productId, productForm.values);
-    }
-  };
-
   const handleDelete = () => {
     deleteProduct(initialValues.id);
     router.push("/products");
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit(validate)}>
+    <form className={classes.root} onSubmit={handleSubmit}>
       <div>
         <AppBar
           className={classes.appBar}
@@ -282,7 +261,6 @@ const ProductForm = ({
         <FormButton
           className={classes.button}
           type="submit"
-          onClick={handleDispatch}
           disabled={pristine || submitting}
           name={"save"}
           icon={<SaveIcon />}
@@ -302,13 +280,11 @@ const ProductForm = ({
 
 export default compose(
   connect(mapStateToProps, {
-    editProduct,
     deleteProduct,
-    createProduct,
   }),
   reduxForm({
     form: "productForm",
-    validate
+    validate,
   })
 )(ProductForm);
 

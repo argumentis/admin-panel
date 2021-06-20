@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { uid } from "uid";
 // material UI
 import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { connect } from "react-redux";
 import { setPageName } from "redux/modules/layout/actionCreators";
+import { createProduct } from "redux/modules/products/actionCreators";
 // components
 import ProductForm from "../ProductForm";
 // next
@@ -25,7 +27,8 @@ const mapStateToProps = (store) => {
   };
 };
 
-const CreateProduct = ({ username }) => {
+const CreateProduct = ({ username, setPageName, createProduct }) => {
+  const productId = uid();
   const classes = useStyles();
   const router = useRouter();
 
@@ -37,11 +40,18 @@ const CreateProduct = ({ username }) => {
     setPageName("Create Product");
   }, []);
 
+  const saveResult = (values) => {
+    createProduct(productId, values);
+    router.push("/products");
+  };
+
   return (
     <div className={classes.root}>
-      <ProductForm />
+      <ProductForm onSubmit={saveResult} />
     </div>
   );
 };
 
-export default connect(mapStateToProps, { setPageName })(CreateProduct);
+export default connect(mapStateToProps, { setPageName, createProduct })(
+  CreateProduct
+);

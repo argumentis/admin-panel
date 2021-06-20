@@ -4,8 +4,11 @@ import { makeStyles } from "@material-ui/core/styles";
 // redux
 import { connect } from "react-redux";
 import { setPageName } from "redux/modules/layout/actionCreators";
+import { editProduct } from "redux/modules/products/actionCreators";
+
 // components
 import ProductForm from "../ProductForm";
+// import showResults from "./helper";
 // next
 import { useRouter } from "next/router";
 import Error from "next/error";
@@ -29,7 +32,7 @@ const mapStateToProps = (store) => {
   };
 };
 
-const Product = ({ productsArray, username, setPageName }) => {
+const Product = ({ productsArray, username, setPageName, editProduct }) => {
   const classes = useStyles();
   const router = useRouter();
 
@@ -49,10 +52,15 @@ const Product = ({ productsArray, username, setPageName }) => {
     }
   }, [currentProduct]);
 
+  const saveResult = (values) => {
+    editProduct(currentProduct.id, values);
+    router.push("/products");
+  };
+
   return (
     <div className={classes.root}>
       {currentProduct ? (
-        <ProductForm initialValues={currentProduct} />
+        <ProductForm initialValues={currentProduct} onSubmit={saveResult} />
       ) : (
         <Error statusCode={404} />
       )}
@@ -60,4 +68,4 @@ const Product = ({ productsArray, username, setPageName }) => {
   );
 };
 
-export default connect(mapStateToProps, { setPageName })(Product);
+export default connect(mapStateToProps, { setPageName, editProduct })(Product);
